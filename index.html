@@ -349,6 +349,165 @@
             border-radius: 3px;
         }
 
+        .admin-overlay {
+            position: fixed;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.45);
+            z-index: 2000;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .admin-panel {
+            width: 920px;
+            max-width: 100%;
+            max-height: 95vh;
+            overflow: auto;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .admin-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 22px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .admin-title {
+            margin: 0;
+            font-size: 20px;
+            color: #333;
+        }
+
+        .admin-close {
+            border: none;
+            background: transparent;
+            font-size: 24px;
+            line-height: 1;
+            color: #888;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .admin-body {
+            padding: 20px 22px 24px;
+        }
+
+        .admin-auth-tip {
+            margin: 0 0 10px;
+            color: #666;
+        }
+
+        .admin-inline {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .admin-input,
+        .admin-select {
+            height: 34px;
+            border: 1px solid #d9d9d9;
+            border-radius: 4px;
+            padding: 0 10px;
+            font-size: 14px;
+            color: #333;
+            box-sizing: border-box;
+            background: #fff;
+        }
+
+        .admin-input {
+            width: 100%;
+        }
+
+        .admin-select {
+            width: 100%;
+        }
+
+        .admin-meta {
+            margin: 0 0 14px;
+            color: #666;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .admin-meta .admin-key {
+            color: #333;
+            font-weight: 600;
+        }
+
+        .admin-form-block {
+            margin-bottom: 14px;
+        }
+
+        .admin-label {
+            display: block;
+            margin-bottom: 6px;
+            color: #555;
+            font-size: 14px;
+        }
+
+        .admin-subject-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 8px 0 12px;
+        }
+
+        .admin-subject-table th,
+        .admin-subject-table td {
+            border: 1px solid #ebebeb;
+            padding: 8px;
+            vertical-align: middle;
+            font-size: 14px;
+        }
+
+        .admin-subject-table th {
+            background: #f8fafc;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .admin-subject-table .admin-input,
+        .admin-subject-table .admin-select {
+            width: 100%;
+        }
+
+        .admin-subject-table .admin-score {
+            width: 100px;
+        }
+
+        .admin-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .admin-msg {
+            min-height: 22px;
+            line-height: 22px;
+            font-size: 13px;
+            color: #666;
+            margin-top: 8px;
+        }
+
+        .admin-msg.error {
+            color: #d93025;
+        }
+
+        .admin-msg.success {
+            color: #1a7f37;
+        }
+
         @media (max-width: 1000px) {
             .score-query-wrapper {
                 width: 92%;
@@ -395,6 +554,19 @@
                 margin-top: 18px;
                 right: auto;
                 top: auto;
+            }
+
+            .admin-panel {
+                width: 100%;
+            }
+
+            .admin-inline {
+                flex-wrap: wrap;
+            }
+
+            .admin-subject-table {
+                display: block;
+                overflow-x: auto;
             }
         }
     </style>
@@ -719,7 +891,7 @@ gtag('config', 'UA-100524-7', {'sample_rate': 5});
             <span class="info-line"></span>
             <a href="/user/">用户中心</a>
             <span class="info-line"></span>
-            <a href="https://account.chsi.com.cn/account/preregister.action?from=yz-home">注册</a>
+            <a href="#" id="adminEntry">后台</a>
         </div>
     </div>
 </div>
@@ -951,6 +1123,81 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>
         </div>
     </div>
+
+    <div id="adminOverlay" class="admin-overlay" aria-hidden="true">
+        <div class="admin-panel" role="dialog" aria-modal="true" aria-labelledby="adminTitle">
+            <div class="admin-header">
+                <h3 id="adminTitle" class="admin-title">本地后台设置</h3>
+                <button id="adminCloseBtn" type="button" class="admin-close" aria-label="关闭">×</button>
+            </div>
+            <div class="admin-body">
+                <div id="adminAuthSection">
+                    <p class="admin-auth-tip">首次访问后台请先输入资格码。一个资格码在本机绑定后不可再次更换。</p>
+                    <div class="admin-inline">
+                        <input id="adminCodeInput" class="admin-input" type="text" placeholder="请输入资格码（例如：YZ-LOCAL-260001）" autocomplete="off">
+                        <button id="adminCodeVerifyBtn" type="button" class="ch-btn ch-btn-primary">验证进入</button>
+                    </div>
+                    <div id="adminAuthMsg" class="admin-msg"></div>
+                </div>
+
+                <div id="adminConfigSection" style="display:none;">
+                    <div class="admin-meta">
+                        已绑定资格码：<span id="adminBoundCode" class="admin-key"></span><br>
+                        配置状态：<span id="adminConfigStatus" class="admin-key"></span>
+                    </div>
+                    <form id="adminConfigForm" novalidate>
+                        <div class="admin-form-block">
+                            <label class="admin-label" for="adminSchoolSelect">对应学校（仅可配置一次）</label>
+                            <select id="adminSchoolSelect" class="admin-select"></select>
+                        </div>
+
+                        <table class="admin-subject-table">
+                            <thead>
+                                <tr>
+                                    <th width="18%">科目</th>
+                                    <th width="36%">选择科目</th>
+                                    <th width="30%">手动科目名称</th>
+                                    <th width="16%">分数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="admin-subject-row" data-subject-index="1">
+                                    <td>第一门</td>
+                                    <td><select class="admin-select admin-subject-select"></select></td>
+                                    <td><input class="admin-input admin-subject-name" type="text" maxlength="80" placeholder="可手动输入"></td>
+                                    <td><input class="admin-input admin-score admin-subject-score" type="number" min="0" max="300" step="1"></td>
+                                </tr>
+                                <tr class="admin-subject-row" data-subject-index="2">
+                                    <td>第二门</td>
+                                    <td><select class="admin-select admin-subject-select"></select></td>
+                                    <td><input class="admin-input admin-subject-name" type="text" maxlength="80" placeholder="可手动输入"></td>
+                                    <td><input class="admin-input admin-score admin-subject-score" type="number" min="0" max="300" step="1"></td>
+                                </tr>
+                                <tr class="admin-subject-row" data-subject-index="3">
+                                    <td>第三门</td>
+                                    <td><select class="admin-select admin-subject-select"></select></td>
+                                    <td><input class="admin-input admin-subject-name" type="text" maxlength="80" placeholder="可手动输入"></td>
+                                    <td><input class="admin-input admin-score admin-subject-score" type="number" min="0" max="300" step="1"></td>
+                                </tr>
+                                <tr class="admin-subject-row" data-subject-index="4">
+                                    <td>第四门</td>
+                                    <td><select class="admin-select admin-subject-select"></select></td>
+                                    <td><input class="admin-input admin-subject-name" type="text" maxlength="80" placeholder="可手动输入"></td>
+                                    <td><input class="admin-input admin-score admin-subject-score" type="number" min="0" max="300" step="1"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="admin-actions">
+                            <button id="adminSaveBtn" type="submit" class="ch-btn ch-btn-primary">保存并锁定本资格码</button>
+                        </div>
+                    </form>
+                    <div id="adminConfigMsg" class="admin-msg"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- 4: 底部区域 -->
 <style>
     /**
@@ -1031,6 +1278,21 @@ document.addEventListener('DOMContentLoaded', function () {
         top: 75px;
         left: 844px;
     }
+
+    .site-disclaimer {
+        padding: 12px 16px;
+        background: #1f1f1f;
+        border-top: 1px solid #3a3a3a;
+        color: #8e8e8e;
+        font-size: 12px;
+        line-height: 1.8;
+        text-align: center;
+    }
+
+    .site-disclaimer strong {
+        color: #9d9d9d;
+        font-weight: 500;
+    }
 </style>
 <svg style="display: block; width: 0; height: 0">
     <defs>
@@ -1103,6 +1365,11 @@ document.addEventListener('DOMContentLoaded', function () {
         </div>
     </div>
 </div>
+<div class="site-disclaimer">
+    <strong>免责声明：</strong>
+    本页面为前端技术学习与静态演示用途，非中国研究生招生信息网（研招网）官方页面，未提供任何官方成绩查询服务；
+    页面中展示的学校、科目与分数等信息仅用于界面演示，不构成真实招生考试依据。若相关内容涉及权利问题，请联系删除。
+</div>
 
     <script type="text/javascript" src="./data/region-schools.js"></script>
     <script>
@@ -1128,6 +1395,21 @@ document.addEventListener('DOMContentLoaded', function () {
         var backToSelectLink = document.getElementById("backToSelectLink");
         var backBtn = document.getElementById("backToQueryBtn");
         var resultToSelectBtn = document.getElementById("resultToSelectBtn");
+        var adminEntry = document.getElementById("adminEntry");
+        var adminOverlay = document.getElementById("adminOverlay");
+        var adminCloseBtn = document.getElementById("adminCloseBtn");
+        var adminAuthSection = document.getElementById("adminAuthSection");
+        var adminConfigSection = document.getElementById("adminConfigSection");
+        var adminCodeInput = document.getElementById("adminCodeInput");
+        var adminCodeVerifyBtn = document.getElementById("adminCodeVerifyBtn");
+        var adminAuthMsg = document.getElementById("adminAuthMsg");
+        var adminBoundCode = document.getElementById("adminBoundCode");
+        var adminConfigStatus = document.getElementById("adminConfigStatus");
+        var adminConfigForm = document.getElementById("adminConfigForm");
+        var adminSchoolSelect = document.getElementById("adminSchoolSelect");
+        var adminSaveBtn = document.getElementById("adminSaveBtn");
+        var adminConfigMsg = document.getElementById("adminConfigMsg");
+        var adminSubjectRows = Array.prototype.slice.call(document.querySelectorAll(".admin-subject-row"));
 
         if (!form || !queryPanel || !resultPanel || !schoolSelectPage || !queryPage) {
             return;
@@ -1136,52 +1418,57 @@ document.addEventListener('DOMContentLoaded', function () {
         var selectedRegionCode = "";
         var selectedRegionNameText = "";
         var selectedSchool = null;
-        var SUBJECT_TEMPLATES = [
-            [
-                { name: "(101)思想政治理论", full: 100 },
-                { name: "(201)英语（一）", full: 100 },
-                { name: "(301)数学（一）", full: 150 },
-                { name: "(408)计算机学科专业基础", full: 150 }
-            ],
-            [
-                { name: "(101)思想政治理论", full: 100 },
-                { name: "(201)英语（一）", full: 100 },
-                { name: "(302)数学（二）", full: 150 },
-                { name: "(815)管理学综合", full: 150 }
-            ],
-            [
-                { name: "(101)思想政治理论", full: 100 },
-                { name: "(201)英语（一）", full: 100 },
-                { name: "(303)数学（三）", full: 150 },
-                { name: "(902)经济学综合", full: 150 }
-            ],
-            [
-                { name: "(101)思想政治理论", full: 100 },
-                { name: "(201)英语（一）", full: 100 },
-                { name: "(306)临床医学综合能力（西医）", full: 300 }
-            ],
-            [
-                { name: "(101)思想政治理论", full: 100 },
-                { name: "(204)英语（二）", full: 100 },
-                { name: "(311)教育学专业基础", full: 300 }
-            ],
-            [
-                { name: "(101)思想政治理论", full: 100 },
-                { name: "(201)英语（一）", full: 100 },
-                { name: "(397)法硕联考专业基础（非法学）", full: 150 },
-                { name: "(497)法硕联考综合（非法学）", full: 150 }
-            ],
-            [
-                { name: "(199)管理类综合能力", full: 200 },
-                { name: "(204)英语（二）", full: 100 }
-            ],
-            [
-                { name: "(101)思想政治理论", full: 100 },
-                { name: "(204)英语（二）", full: 100 },
-                { name: "(701)艺术基础", full: 150 },
-                { name: "(901)专业创作", full: 150 }
-            ]
+        var THIRD_SUBJECT_POOL = [
+            { name: "(301)数学（一）", full: 150 },
+            { name: "(302)数学（二）", full: 150 },
+            { name: "(303)数学（三）", full: 150 },
+            { name: "(306)临床医学综合能力（西医）", full: 300 },
+            { name: "(307)临床医学综合能力（中医）", full: 300 },
+            { name: "(311)教育学专业基础", full: 300 },
+            { name: "(312)心理学专业基础", full: 300 },
+            { name: "(313)历史学专业基础", full: 300 },
+            { name: "(396)经济类联考综合能力", full: 150 },
+            { name: "(397)法硕联考专业基础（非法学）", full: 150 }
         ];
+        var FOURTH_SUBJECT_POOL = [
+            { name: "(408)计算机学科专业基础", full: 150 },
+            { name: "(431)金融学综合", full: 150 },
+            { name: "(432)统计学", full: 150 },
+            { name: "(433)税务专业基础", full: 150 },
+            { name: "(434)国际商务专业基础", full: 150 },
+            { name: "(435)保险专业基础", full: 150 },
+            { name: "(436)资产评估专业基础", full: 150 },
+            { name: "(437)社会工作实务", full: 150 },
+            { name: "(438)警务专业基础", full: 150 },
+            { name: "(440)新闻与传播专业基础", full: 150 },
+            { name: "(448)汉语写作与百科知识", full: 150 },
+            { name: "(849)世界史综合", full: 300 },
+            { name: "(867)经济学", full: 150 },
+            { name: "(875)知识产权与竞争法", full: 150 },
+            { name: "(876)中国化的马克思主义", full: 150 },
+            { name: "(890)哲学综合", full: 150 },
+            { name: "(901)数据结构", full: 150 },
+            { name: "(912)自动控制原理", full: 150 },
+            { name: "(915)电路原理", full: 150 },
+            { name: "(925)数据结构", full: 150 }
+        ];
+        var SCHOOL_SUBJECT_PLAN_CACHE = {};
+        var ADMIN_QUAL_CODES = [
+            "YZ-LOCAL-260001", "YZ-LOCAL-260002", "YZ-LOCAL-260003", "YZ-LOCAL-260004", "YZ-LOCAL-260005",
+            "YZ-LOCAL-260006", "YZ-LOCAL-260007", "YZ-LOCAL-260008", "YZ-LOCAL-260009", "YZ-LOCAL-260010",
+            "YZ-LOCAL-260011", "YZ-LOCAL-260012", "YZ-LOCAL-260013", "YZ-LOCAL-260014", "YZ-LOCAL-260015",
+            "YZ-LOCAL-260016", "YZ-LOCAL-260017", "YZ-LOCAL-260018", "YZ-LOCAL-260019", "YZ-LOCAL-260020"
+        ];
+        var ADMIN_STORAGE_KEYS = {
+            deviceId: "yz_admin_device_id_v1",
+            usedCodes: "yz_admin_used_codes_v1",
+            boundCode: "yz_admin_bound_code_v1",
+            codeConfigs: "yz_admin_code_configs_v1",
+            schoolOverrides: "yz_school_overrides_v1"
+        };
+        var ADMIN_SUBJECT_OPTIONS = [];
+        var allSchools = [];
+        var schoolByCode = {};
 
         function normalizeText(value) {
             return (value || "").replace(/\s+/g, "").trim();
@@ -1216,6 +1503,87 @@ document.addEventListener('DOMContentLoaded', function () {
 
         function setQueryError(message) {
             queryError.textContent = message || "";
+        }
+
+        function readStorageJSON(key, fallbackValue) {
+            try {
+                var raw = localStorage.getItem(key);
+                if (!raw) {
+                    return fallbackValue;
+                }
+                var parsed = JSON.parse(raw);
+                return parsed && typeof parsed === "object" ? parsed : fallbackValue;
+            } catch (error) {
+                return fallbackValue;
+            }
+        }
+
+        function writeStorageJSON(key, data) {
+            try {
+                localStorage.setItem(key, JSON.stringify(data));
+            } catch (error) {
+                // ignore localStorage write errors
+            }
+        }
+
+        function getOrCreateDeviceId() {
+            var deviceId = localStorage.getItem(ADMIN_STORAGE_KEYS.deviceId);
+            if (deviceId) {
+                return deviceId;
+            }
+            var seed = hashString(navigator.userAgent + "|" + String(Date.now()) + "|" + String(Math.random()));
+            deviceId = "dev-" + seed.toString(16);
+            localStorage.setItem(ADMIN_STORAGE_KEYS.deviceId, deviceId);
+            return deviceId;
+        }
+
+        function getUsedAdminCodes() {
+            return readStorageJSON(ADMIN_STORAGE_KEYS.usedCodes, {});
+        }
+
+        function setUsedAdminCodes(data) {
+            writeStorageJSON(ADMIN_STORAGE_KEYS.usedCodes, data);
+        }
+
+        function getBoundAdminCode() {
+            return localStorage.getItem(ADMIN_STORAGE_KEYS.boundCode) || "";
+        }
+
+        function setBoundAdminCode(code) {
+            if (!code) {
+                localStorage.removeItem(ADMIN_STORAGE_KEYS.boundCode);
+                return;
+            }
+            localStorage.setItem(ADMIN_STORAGE_KEYS.boundCode, code);
+        }
+
+        function getAdminCodeConfigs() {
+            return readStorageJSON(ADMIN_STORAGE_KEYS.codeConfigs, {});
+        }
+
+        function setAdminCodeConfigs(data) {
+            writeStorageJSON(ADMIN_STORAGE_KEYS.codeConfigs, data);
+        }
+
+        function getSchoolOverrides() {
+            return readStorageJSON(ADMIN_STORAGE_KEYS.schoolOverrides, {});
+        }
+
+        function setSchoolOverrides(data) {
+            writeStorageJSON(ADMIN_STORAGE_KEYS.schoolOverrides, data);
+        }
+
+        function setAdminMessage(target, message, type) {
+            if (!target) {
+                return;
+            }
+            target.textContent = message || "";
+            target.className = "admin-msg";
+            if (type === "error") {
+                target.className += " error";
+            } else if (type === "success") {
+                target.className += " success";
+            }
         }
 
         function formatSubject(subject) {
@@ -1255,12 +1623,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 return max;
             }
             return value;
-        }
-
-        function pickTemplate(schoolCode) {
-            var parsed = parseInt(String(schoolCode || ""), 10);
-            var base = isNaN(parsed) ? hashString(schoolCode) : parsed;
-            return SUBJECT_TEMPLATES[Math.abs(base) % SUBJECT_TEMPLATES.length];
         }
 
         function generateSubjectScore(full, rng) {
@@ -1317,7 +1679,481 @@ document.addEventListener('DOMContentLoaded', function () {
             return "请各位考生保存好本人初试成绩，后续成绩复核与复试安排请关注招生单位通知。";
         }
 
+        function chooseEnglishSubject(school) {
+            var schoolName = String((school && school.name) || "");
+            if (/财经|管理|工商|商学院|会计|金融|审计|师范|教育|艺术|体育|医科|医学|药科|中医/.test(schoolName)) {
+                return { name: "(204)英语（二）", full: 100 };
+            }
+            return { name: "(201)英语（一）", full: 100 };
+        }
+
+        function chooseThirdSubject(school, seedIndex) {
+            var schoolName = String((school && school.name) || "");
+            if (/中医/.test(schoolName)) {
+                return { name: "(307)临床医学综合能力（中医）", full: 300 };
+            }
+            if (/医科|医学|医院|卫生/.test(schoolName)) {
+                return { name: "(306)临床医学综合能力（西医）", full: 300 };
+            }
+            if (/师范|教育/.test(schoolName)) {
+                return { name: "(311)教育学专业基础", full: 300 };
+            }
+            if (/政法|法|公安|警察/.test(schoolName)) {
+                return { name: "(397)法硕联考专业基础（非法学）", full: 150 };
+            }
+            if (/财经|金融|经贸|经济|商学院|管理/.test(schoolName)) {
+                return { name: "(396)经济类联考综合能力", full: 150 };
+            }
+            return THIRD_SUBJECT_POOL[seedIndex % THIRD_SUBJECT_POOL.length];
+        }
+
+        function chooseFourthSubject(seedIndex) {
+            return FOURTH_SUBJECT_POOL[seedIndex % FOURTH_SUBJECT_POOL.length];
+        }
+
+        function getSchoolSubjectPlan(school) {
+            var key = String((school && school.code) || "");
+            if (!key) {
+                return null;
+            }
+            if (SCHOOL_SUBJECT_PLAN_CACHE[key]) {
+                return SCHOOL_SUBJECT_PLAN_CACHE[key];
+            }
+
+            var poolSeed = hashString(key + "|" + String(school.name || ""));
+            var thirdSeedIndex = poolSeed % THIRD_SUBJECT_POOL.length;
+            var fourthSeedIndex = hashString(String(school.name || "") + "|" + key + "|fourth") % FOURTH_SUBJECT_POOL.length;
+            var thirdSubject = chooseThirdSubject(school, thirdSeedIndex);
+            var fourthSubject = chooseFourthSubject(fourthSeedIndex);
+            var englishSubject = chooseEnglishSubject(school);
+
+            var plan = {
+                subject1: { name: "(101)思想政治理论", full: 100 },
+                subject2: englishSubject,
+                subject3: { name: thirdSubject.name, full: thirdSubject.full },
+                subject4: { name: fourthSubject.name, full: fourthSubject.full }
+            };
+
+            SCHOOL_SUBJECT_PLAN_CACHE[key] = plan;
+            return plan;
+        }
+
+        function buildSchoolIndex() {
+            allSchools = [];
+            schoolByCode = {};
+            for (var i = 0; i < regions.length; i++) {
+                var region = regions[i];
+                var regionShortName = shortRegionName(region.name);
+                var schoolList = region.schools || [];
+                for (var j = 0; j < schoolList.length; j++) {
+                    var school = schoolList[j];
+                    var item = {
+                        code: String(school.code),
+                        name: school.name,
+                        regionName: regionShortName,
+                        queryMode: school.queryMode || "",
+                        website: school.website || ""
+                    };
+                    allSchools.push(item);
+                    schoolByCode[item.code] = item;
+                }
+            }
+        }
+
+        function getSchoolByCode(code) {
+            return schoolByCode[String(code)] || null;
+        }
+
+        function buildAdminSubjectOptions() {
+            var unique = {};
+            var list = [];
+
+            function pushSubject(name) {
+                if (!name || unique[name]) {
+                    return;
+                }
+                unique[name] = true;
+                list.push(name);
+            }
+
+            pushSubject("(101)思想政治理论");
+            pushSubject("(201)英语（一）");
+            pushSubject("(204)英语（二）");
+
+            for (var i = 0; i < THIRD_SUBJECT_POOL.length; i++) {
+                pushSubject(THIRD_SUBJECT_POOL[i].name);
+            }
+            for (var j = 0; j < FOURTH_SUBJECT_POOL.length; j++) {
+                pushSubject(FOURTH_SUBJECT_POOL[j].name);
+            }
+
+            ADMIN_SUBJECT_OPTIONS = list;
+        }
+
+        function selectHasOption(select, value) {
+            for (var i = 0; i < select.options.length; i++) {
+                if (select.options[i].value === value) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function getDefaultScoreByFull(full) {
+            if (full >= 300) {
+                return 220;
+            }
+            if (full >= 200) {
+                return 150;
+            }
+            if (full >= 150) {
+                return 108;
+            }
+            return 72;
+        }
+
+        function setAdminRowValue(row, subjectName, score) {
+            var select = row.querySelector(".admin-subject-select");
+            var nameInput = row.querySelector(".admin-subject-name");
+            var scoreInput = row.querySelector(".admin-subject-score");
+            var normalizedName = (subjectName || "").trim();
+
+            if (!normalizedName) {
+                select.value = "";
+                nameInput.value = "";
+            } else if (selectHasOption(select, normalizedName)) {
+                select.value = normalizedName;
+                nameInput.value = normalizedName;
+            } else {
+                select.value = "__manual__";
+                nameInput.value = normalizedName;
+            }
+
+            scoreInput.value = (score !== null && score !== undefined && score !== "") ? String(score) : "";
+        }
+
+        function setAdminFormLocked(locked) {
+            if (!adminConfigForm) {
+                return;
+            }
+            adminSchoolSelect.disabled = !!locked;
+            adminSaveBtn.disabled = !!locked;
+            for (var i = 0; i < adminSubjectRows.length; i++) {
+                var select = adminSubjectRows[i].querySelector(".admin-subject-select");
+                var nameInput = adminSubjectRows[i].querySelector(".admin-subject-name");
+                var scoreInput = adminSubjectRows[i].querySelector(".admin-subject-score");
+                select.disabled = !!locked;
+                nameInput.disabled = !!locked;
+                scoreInput.disabled = !!locked;
+            }
+        }
+
+        function populateAdminSchoolSelect() {
+            if (!adminSchoolSelect) {
+                return;
+            }
+            adminSchoolSelect.innerHTML = "";
+            for (var i = 0; i < allSchools.length; i++) {
+                var school = allSchools[i];
+                var option = document.createElement("option");
+                option.value = school.code;
+                option.textContent = "(" + school.code + ")" + school.name + " - " + school.regionName;
+                adminSchoolSelect.appendChild(option);
+            }
+        }
+
+        function populateAdminSubjectSelects() {
+            if (!adminSubjectRows.length) {
+                return;
+            }
+            for (var i = 0; i < adminSubjectRows.length; i++) {
+                var row = adminSubjectRows[i];
+                var select = row.querySelector(".admin-subject-select");
+                select.innerHTML = "";
+
+                var defaultOption = document.createElement("option");
+                defaultOption.value = "";
+                defaultOption.textContent = "请选择";
+                select.appendChild(defaultOption);
+
+                var manualOption = document.createElement("option");
+                manualOption.value = "__manual__";
+                manualOption.textContent = "手动输入";
+                select.appendChild(manualOption);
+
+                for (var j = 0; j < ADMIN_SUBJECT_OPTIONS.length; j++) {
+                    var option = document.createElement("option");
+                    option.value = ADMIN_SUBJECT_OPTIONS[j];
+                    option.textContent = ADMIN_SUBJECT_OPTIONS[j];
+                    select.appendChild(option);
+                }
+
+                if (select.getAttribute("data-bind") !== "1") {
+                    (function (rowRef, selectRef) {
+                        selectRef.addEventListener("change", function () {
+                            var nameInput = rowRef.querySelector(".admin-subject-name");
+                            if (selectRef.value && selectRef.value !== "__manual__") {
+                                nameInput.value = selectRef.value;
+                            }
+                        });
+                    })(row, select);
+                    select.setAttribute("data-bind", "1");
+                }
+            }
+        }
+
+        function fillAdminFormWithSchoolPlan(school) {
+            var plan = getSchoolSubjectPlan(school);
+            if (!plan) {
+                return;
+            }
+            var subjects = [plan.subject1, plan.subject2, plan.subject3, plan.subject4];
+            for (var i = 0; i < adminSubjectRows.length; i++) {
+                var subject = subjects[i];
+                if (!subject) {
+                    setAdminRowValue(adminSubjectRows[i], "", "");
+                    continue;
+                }
+                setAdminRowValue(adminSubjectRows[i], subject.name, getDefaultScoreByFull(subject.full));
+            }
+        }
+
+        function fillAdminFormWithOverride(overrideData) {
+            var subjects = (overrideData && overrideData.subjects) ? overrideData.subjects : [];
+            for (var i = 0; i < adminSubjectRows.length; i++) {
+                var item = subjects[i] || {};
+                setAdminRowValue(adminSubjectRows[i], item.name || "", item.score);
+            }
+        }
+
+        function getSchoolOverrideByCode(code) {
+            var overrides = getSchoolOverrides();
+            return overrides[String(code)] || null;
+        }
+
+        function collectAdminFormPayload() {
+            var selectedCode = String(adminSchoolSelect.value || "");
+            var school = getSchoolByCode(selectedCode);
+            if (!school) {
+                return { error: "请选择有效的学校。" };
+            }
+
+            var subjects = [];
+            var total = 0;
+            for (var i = 0; i < adminSubjectRows.length; i++) {
+                var row = adminSubjectRows[i];
+                var nameInput = row.querySelector(".admin-subject-name");
+                var scoreInput = row.querySelector(".admin-subject-score");
+                var subjectName = normalizeText(nameInput.value);
+                var scoreNumber = parseInt(scoreInput.value, 10);
+
+                if (!subjectName) {
+                    return { error: "请填写第" + (i + 1) + "门科目名称。" };
+                }
+                if (isNaN(scoreNumber) || scoreNumber < 0 || scoreNumber > 300) {
+                    return { error: "第" + (i + 1) + "门分数需为 0-300 的整数。" };
+                }
+
+                subjects.push({ name: subjectName, score: scoreNumber });
+                total += scoreNumber;
+            }
+
+            return {
+                school: school,
+                subjects: subjects,
+                total: total
+            };
+        }
+
+        function showAdminAuthSection() {
+            if (!adminOverlay) {
+                return;
+            }
+            adminAuthSection.style.display = "block";
+            adminConfigSection.style.display = "none";
+            setAdminMessage(adminAuthMsg, "", "");
+            if (adminCodeInput) {
+                adminCodeInput.value = "";
+                adminCodeInput.focus();
+            }
+        }
+
+        function showAdminConfigSection() {
+            if (!adminOverlay) {
+                return;
+            }
+            var boundCode = getBoundAdminCode();
+            if (!boundCode) {
+                showAdminAuthSection();
+                return;
+            }
+
+            populateAdminSchoolSelect();
+            populateAdminSubjectSelects();
+
+            adminAuthSection.style.display = "none";
+            adminConfigSection.style.display = "block";
+            adminBoundCode.textContent = boundCode;
+
+            var codeConfigs = getAdminCodeConfigs();
+            var codeConfig = codeConfigs[boundCode] || null;
+            if (codeConfig) {
+                adminConfigStatus.textContent = "已配置并锁定（该资格码不可再次修改）";
+                setAdminFormLocked(true);
+                adminSchoolSelect.value = codeConfig.schoolCode || "";
+                var overrideLocked = getSchoolOverrideByCode(codeConfig.schoolCode || "");
+                if (overrideLocked) {
+                    fillAdminFormWithOverride(overrideLocked);
+                } else {
+                    var lockedSchool = getSchoolByCode(codeConfig.schoolCode || "");
+                    if (lockedSchool) {
+                        fillAdminFormWithSchoolPlan(lockedSchool);
+                    }
+                }
+                setAdminMessage(adminConfigMsg, "该资格码已使用并锁定，当前仅可查看。", "");
+            } else {
+                adminConfigStatus.textContent = "未配置，可提交 1 次";
+                setAdminFormLocked(false);
+                var defaultSchool = selectedSchool ? getSchoolByCode(selectedSchool.code) : (allSchools[0] || null);
+                if (defaultSchool) {
+                    adminSchoolSelect.value = defaultSchool.code;
+                    fillAdminFormWithSchoolPlan(defaultSchool);
+                }
+                setAdminMessage(adminConfigMsg, "", "");
+            }
+        }
+
+        function openAdminOverlay() {
+            if (!adminOverlay) {
+                return;
+            }
+            adminOverlay.style.display = "flex";
+            adminOverlay.setAttribute("aria-hidden", "false");
+            if (getBoundAdminCode()) {
+                showAdminConfigSection();
+            } else {
+                showAdminAuthSection();
+            }
+        }
+
+        function closeAdminOverlay() {
+            if (!adminOverlay) {
+                return;
+            }
+            adminOverlay.style.display = "none";
+            adminOverlay.setAttribute("aria-hidden", "true");
+        }
+
+        function verifyAdminCodeAndBind() {
+            var code = normalizeText(adminCodeInput.value).toUpperCase();
+            if (!code) {
+                setAdminMessage(adminAuthMsg, "请输入资格码。", "error");
+                return;
+            }
+            if (ADMIN_QUAL_CODES.indexOf(code) < 0) {
+                setAdminMessage(adminAuthMsg, "资格码无效。", "error");
+                return;
+            }
+
+            var usedCodes = getUsedAdminCodes();
+            if (usedCodes[code]) {
+                setAdminMessage(adminAuthMsg, "该资格码已被设备使用。", "error");
+                return;
+            }
+
+            usedCodes[code] = {
+                deviceId: getOrCreateDeviceId(),
+                usedAt: new Date().toISOString()
+            };
+            setUsedAdminCodes(usedCodes);
+            setBoundAdminCode(code);
+            setAdminMessage(adminAuthMsg, "资格码验证成功。", "success");
+            showAdminConfigSection();
+        }
+
+        function saveAdminConfigOnce(event) {
+            event.preventDefault();
+            var boundCode = getBoundAdminCode();
+            if (!boundCode) {
+                setAdminMessage(adminConfigMsg, "请先输入资格码完成绑定。", "error");
+                return;
+            }
+
+            var codeConfigs = getAdminCodeConfigs();
+            if (codeConfigs[boundCode]) {
+                setAdminMessage(adminConfigMsg, "该资格码已配置过数据，不能再次修改。", "error");
+                setAdminFormLocked(true);
+                return;
+            }
+
+            var payload = collectAdminFormPayload();
+            if (payload.error) {
+                setAdminMessage(adminConfigMsg, payload.error, "error");
+                return;
+            }
+
+            var now = new Date().toISOString();
+            var overrides = getSchoolOverrides();
+            overrides[payload.school.code] = {
+                schoolCode: payload.school.code,
+                schoolName: payload.school.name,
+                region: payload.school.regionName,
+                subjects: payload.subjects,
+                total: payload.total,
+                remark: "无",
+                schoolNote: buildSchoolNote(payload.school),
+                updatedAt: now,
+                fromCode: boundCode
+            };
+            setSchoolOverrides(overrides);
+
+            codeConfigs[boundCode] = {
+                schoolCode: payload.school.code,
+                schoolName: payload.school.name,
+                savedAt: now
+            };
+            setAdminCodeConfigs(codeConfigs);
+
+            setAdminMessage(adminConfigMsg, "保存成功：该资格码已锁定，本机将永久优先展示此学校的本地配置数据。", "success");
+            showAdminConfigSection();
+        }
+
         function buildGeneratedResult(name, idCard, ticketNo) {
+            var overrideData = getSchoolOverrideByCode(selectedSchool.code);
+            if (overrideData && overrideData.subjects && overrideData.subjects.length) {
+                var fixedSubjects = [null, null, null, null];
+                var fixedTotal = 0;
+                for (var i = 0; i < fixedSubjects.length; i++) {
+                    var source = overrideData.subjects[i];
+                    if (!source || !source.name) {
+                        continue;
+                    }
+                    var fixedScore = parseInt(source.score, 10);
+                    if (isNaN(fixedScore)) {
+                        fixedScore = 0;
+                    }
+                    fixedSubjects[i] = {
+                        name: source.name,
+                        score: fixedScore
+                    };
+                    fixedTotal += fixedScore;
+                }
+
+                return {
+                    name: name,
+                    idCard: idCard,
+                    ticketNo: ticketNo,
+                    registrationNo: buildRegistrationNo(selectedSchool.code, ticketNo, idCard, createRng(hashString(name + idCard + ticketNo))),
+                    schoolCode: selectedSchool.code,
+                    schoolName: selectedSchool.name,
+                    region: selectedSchool.regionName,
+                    total: fixedTotal,
+                    subjects: fixedSubjects,
+                    remark: overrideData.remark || "无",
+                    schoolNote: overrideData.schoolNote || buildSchoolNote(selectedSchool)
+                };
+            }
+
             var seedInput = [
                 selectedSchool.code,
                 selectedSchool.name,
@@ -1326,14 +2162,22 @@ document.addEventListener('DOMContentLoaded', function () {
                 ticketNo
             ].join("|");
             var rng = createRng(hashString(seedInput));
-            var template = pickTemplate(selectedSchool.code);
-            var subjects = [null, null, null, null];
+            var plan = getSchoolSubjectPlan(selectedSchool);
+            var subjects = [
+                plan ? plan.subject1 : null,
+                plan ? plan.subject2 : null,
+                plan ? plan.subject3 : null,
+                plan ? plan.subject4 : null
+            ];
             var total = 0;
 
-            for (var i = 0; i < template.length && i < 4; i++) {
-                var score = generateSubjectScore(template[i].full, rng);
+            for (var i = 0; i < subjects.length; i++) {
+                if (!subjects[i]) {
+                    continue;
+                }
+                var score = generateSubjectScore(subjects[i].full, rng);
                 subjects[i] = {
-                    name: template[i].name,
+                    name: subjects[i].name,
                     score: score
                 };
                 total += score;
@@ -1529,6 +2373,67 @@ document.addEventListener('DOMContentLoaded', function () {
             showSelectPage();
         });
 
+        if (adminSchoolSelect && adminSchoolSelect.getAttribute("data-bind") !== "1") {
+            adminSchoolSelect.addEventListener("change", function () {
+                var boundCode = getBoundAdminCode();
+                var codeConfigs = getAdminCodeConfigs();
+                if (boundCode && codeConfigs[boundCode]) {
+                    return;
+                }
+                var school = getSchoolByCode(this.value);
+                if (school) {
+                    fillAdminFormWithSchoolPlan(school);
+                }
+            });
+            adminSchoolSelect.setAttribute("data-bind", "1");
+        }
+
+        if (adminEntry) {
+            adminEntry.addEventListener("click", function (event) {
+                event.preventDefault();
+                openAdminOverlay();
+            });
+        }
+
+        if (adminCloseBtn) {
+            adminCloseBtn.addEventListener("click", function () {
+                closeAdminOverlay();
+            });
+        }
+
+        if (adminOverlay) {
+            adminOverlay.addEventListener("click", function (event) {
+                if (event.target === adminOverlay) {
+                    closeAdminOverlay();
+                }
+            });
+        }
+
+        if (adminCodeVerifyBtn) {
+            adminCodeVerifyBtn.addEventListener("click", function () {
+                verifyAdminCodeAndBind();
+            });
+        }
+
+        if (adminCodeInput) {
+            adminCodeInput.addEventListener("keydown", function (event) {
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                    verifyAdminCodeAndBind();
+                }
+            });
+        }
+
+        if (adminConfigForm) {
+            adminConfigForm.addEventListener("submit", function (event) {
+                saveAdminConfigOnce(event);
+            });
+        }
+
+        buildSchoolIndex();
+        buildAdminSubjectOptions();
+        populateAdminSchoolSelect();
+        populateAdminSubjectSelects();
         renderRegionTabs();
         showSelectPage();
 
