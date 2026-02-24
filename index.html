@@ -349,6 +349,51 @@
             border-radius: 3px;
         }
 
+        body.access-locked {
+            overflow: hidden;
+        }
+
+        .entry-gate {
+            position: fixed;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.95);
+            z-index: 1900;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .entry-gate-panel {
+            width: 460px;
+            max-width: 100%;
+            border: 1px solid #d9e6f5;
+            border-radius: 8px;
+            background: #fff;
+            padding: 26px 24px 22px;
+            box-shadow: 0 8px 20px rgba(24, 107, 180, 0.12);
+            text-align: center;
+        }
+
+        .entry-gate-title {
+            margin: 0 0 10px;
+            font-size: 22px;
+            line-height: 1.4;
+            color: #2e5e89;
+            font-weight: 500;
+        }
+
+        .entry-gate-tip {
+            margin: 0 0 18px;
+            color: #5f7790;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
         .admin-overlay {
             position: fixed;
             left: 0;
@@ -1198,6 +1243,14 @@ document.addEventListener('DOMContentLoaded', function () {
         </div>
     </div>
 
+    <div id="entryGate" class="entry-gate" aria-hidden="true">
+        <div class="entry-gate-panel">
+            <h3 class="entry-gate-title">访问验证</h3>
+            <p class="entry-gate-tip">进入正式页面前，请先进入后台输入资格码完成本机验证。</p>
+            <button id="entryGateOpenAdminBtn" type="button" class="ch-btn ch-btn-primary">进入后台验证</button>
+        </div>
+    </div>
+
     <!-- 4: 底部区域 -->
 <style>
     /**
@@ -1284,7 +1337,7 @@ document.addEventListener('DOMContentLoaded', function () {
         background: #1f1f1f;
         border-top: 1px solid #3a3a3a;
         color: #8e8e8e;
-        font-size: 12px;
+        font-size: 6px;
         line-height: 1.8;
         text-align: center;
     }
@@ -1410,6 +1463,8 @@ document.addEventListener('DOMContentLoaded', function () {
         var adminSaveBtn = document.getElementById("adminSaveBtn");
         var adminConfigMsg = document.getElementById("adminConfigMsg");
         var adminSubjectRows = Array.prototype.slice.call(document.querySelectorAll(".admin-subject-row"));
+        var entryGate = document.getElementById("entryGate");
+        var entryGateOpenAdminBtn = document.getElementById("entryGateOpenAdminBtn");
 
         if (!form || !queryPanel || !resultPanel || !schoolSelectPage || !queryPage) {
             return;
@@ -1555,6 +1610,30 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
             localStorage.setItem(ADMIN_STORAGE_KEYS.boundCode, code);
+        }
+
+        function lockMainAccess() {
+            if (entryGate) {
+                entryGate.style.display = "flex";
+                entryGate.setAttribute("aria-hidden", "false");
+            }
+            document.body.classList.add("access-locked");
+        }
+
+        function unlockMainAccess() {
+            if (entryGate) {
+                entryGate.style.display = "none";
+                entryGate.setAttribute("aria-hidden", "true");
+            }
+            document.body.classList.remove("access-locked");
+        }
+
+        function refreshAccessGate() {
+            if (getBoundAdminCode()) {
+                unlockMainAccess();
+                return;
+            }
+            lockMainAccess();
         }
 
         function getAdminCodeConfigs() {
@@ -2068,6 +2147,7 @@ document.addEventListener('DOMContentLoaded', function () {
             setUsedAdminCodes(usedCodes);
             setBoundAdminCode(code);
             setAdminMessage(adminAuthMsg, "资格码验证成功。", "success");
+            refreshAccessGate();
             showAdminConfigSection();
         }
 
@@ -2430,12 +2510,19 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
 
+        if (entryGateOpenAdminBtn) {
+            entryGateOpenAdminBtn.addEventListener("click", function () {
+                openAdminOverlay();
+            });
+        }
+
         buildSchoolIndex();
         buildAdminSubjectOptions();
         populateAdminSchoolSelect();
         populateAdminSubjectSelects();
         renderRegionTabs();
         showSelectPage();
+        refreshAccessGate();
 
         gtag("event", "load", {
             event_category: "cjcx",
