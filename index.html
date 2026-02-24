@@ -1,0 +1,1622 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>全国硕士研究生招生考试部分考生初试成绩查询系统</title>
+    <meta content="text/html" charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    
+    <link rel="shortcut icon" type="image/x-icon" href="./assets/images/favicon.ico">
+    <link rel="stylesheet" href="./assets/iconfont.css">
+    <link rel="stylesheet" href="./assets/app.css">
+    <link rel="stylesheet" href="./assets/yz.min.css">
+    <style>
+        body {
+            font-family: Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,\\5FAE\8F6F\96C5\9ED1,Arial,sans-serif,SimSun;
+        }
+        body.ch-sticky {
+            background: #fff;
+        }
+        .top-nav-wrapper .top-nav-list a {
+            box-sizing: content-box;
+        }
+        .ch-sticky .main-wrapper-org {
+            min-height: 100%
+        }
+        .ch-sticky .main-wrapper-org .container {
+            padding-bottom: 198px
+        }
+        table.ch-table td, table.ch-table th {
+            border: none;
+            border-bottom: 1px solid #e9e9e9;
+        }
+        table.ch-table td {
+            padding: 12px 10px;
+        }
+        /*样式修正*/
+        .wbgg-tab-wrapper .item-content .ch-select {
+            min-width: 140px;
+        }
+        .wbgg-list td a {
+            color: #1787e0;
+        }
+        .wbgg-list td {
+            color: #999;
+        }
+        .cjcx-box {
+            margin-top: 24px;
+            margin-bottom: 20px;
+            border: 1px solid #e5e5e5;
+            padding: 48px 82px;
+            position: relative;
+        }
+        .cjxx-info-title {
+            text-align: right;
+            width: 100px;
+            color: #999;
+            vertical-align: top;
+        }
+        .cjxx-info-content {
+            text-align: left;
+            padding-left: 10px;
+            vertical-align: top;
+            word-break: break-all;
+        }
+        .cjxx-info {
+            width: 540px;
+        }
+        .cjxx-info tr {
+            height: 36px
+        }
+        .cjxx-info tr.cjxx-info-cut {
+            height: 15px;
+        }
+        .cjcx-bz {
+            position: absolute;
+            width: 300px;
+            padding: 25px;
+            top: 48px;
+            right: 110px;
+            background: #f7f9fa;
+        }
+        .cjcx-bz-title {
+            font-size: 16px;
+            line-height: 1;
+            margin-bottom: 15px;
+            font-weight: 400;
+            color: #666;
+        }
+        .cjcx-bz-content {
+            text-indent: 0;
+            color: #666;
+            word-break: break-all;
+        }
+        .cjcx-bz-content .ch-paragraph14 {
+            margin-bottom: 0;
+        }
+        .cjcx-tip {
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+        .cjcx-tip .ch-paragraph14 {
+            text-indent: 0;
+            color: #999;
+        }
+        .cjcx-noresult {
+            min-height: 70px;
+            color: #666;
+            font-size: 14px;
+        }
+        .cjcx-noresult .ch-btn {
+            margin-left: 5px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+        .ch-alert {
+            margin: 0 0 30px 0;
+        }
+        .ch-alert .ch-alert-icon {
+            margin-top: 0;
+        }
+        .ch-alert-with-decription {
+            color: #8d8d8d;
+        }
+        .ch-alert-with-decription .ch-alert-message {
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .sch-title {
+            padding: 30px 0 15px;
+            font-size: 18px;
+            color: #666;
+        }
+        .col-title {
+            font-size: 18px;
+            font-weight: 400;
+        }
+        .col-title .more {
+            margin-left: 25px;
+            color: #999;
+            font-size: 14px;
+        }
+        .wbgg-news-list {
+            padding: 5px 0 40px 0;
+            line-height: 35px;
+        }
+        .wbgg-news-list li {
+            height: 35px;
+        }
+        .wbgg-news-list li .time {
+            position: relative;
+            margin-left: 10px;
+            color: #999;
+        }
+        .footer-wrapper .footer {
+            border: none;
+        }
+        .yz-header-banner-wrapper {
+            margin-bottom: 10px;
+            background: linear-gradient(179deg,#2094f0,#1887e0 53%);
+        }
+
+        .yz-header-banner-wrapper .banner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            height: 200px;
+            line-height: 200px;
+            background: url("./assets/images/header-banner-2x.jpg") no-repeat top;
+            background-size: auto 100%;
+            color: #fff;
+            text-shadow: 0px 2px 2px rgba(0,0,0,0.06);
+            text-align: center;
+        }
+
+        .yz-header-banner-wrapper h1 {
+            line-height: 46px;
+            font-size: 38px;
+            font-weight: 700;
+        }
+
+        .yz-header-banner-wrapper .ch-sub-title {
+            margin-top: 8px;
+            font-size: 16px;
+            line-height: 24px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .score-page {
+            padding-bottom: 30px;
+        }
+
+        .score-select-page {
+            display: block;
+        }
+
+        .score-query-page {
+            display: none;
+        }
+
+        .score-sub-title {
+            margin: 18px 0 12px;
+            text-align: center;
+            font-size: 34px;
+            line-height: 1.4;
+            color: #444;
+            font-weight: 400;
+        }
+
+        .score-divider {
+            border-bottom: 1px solid #eee;
+            margin-bottom: 18px;
+        }
+
+        .score-list-alert {
+            margin: 0 0 18px;
+            padding: 10px 14px;
+            border: 1px solid #d9ecff;
+            background: #f5faff;
+            color: #6d7f98;
+            line-height: 1.8;
+            font-size: 14px;
+        }
+
+        .school-link {
+            color: #1787e0;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .school-link:hover {
+            text-decoration: underline;
+            color: #1273bf;
+        }
+
+        .school-link.disabled {
+            color: #999;
+            cursor: not-allowed;
+            text-decoration: none;
+        }
+
+        .score-query-wrapper {
+            width: 760px;
+            margin: 0 auto 28px;
+        }
+
+        .query-switch-row {
+            justify-content: flex-end;
+            margin-bottom: 12px;
+        }
+
+        .query-switch-link {
+            color: #1787e0;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .query-switch-link:hover {
+            color: #1273bf;
+            text-decoration: underline;
+        }
+
+        .score-alert-tip {
+            height: 40px;
+            line-height: 40px;
+            border: 1px solid #f4ebc9;
+            background: #fffbe6;
+            color: #8c7b46;
+            padding: 0 14px;
+            margin-bottom: 22px;
+            font-size: 14px;
+        }
+
+        .query-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .query-label {
+            width: 130px;
+            text-align: right;
+            color: #666;
+            font-size: 14px;
+            line-height: 1;
+        }
+
+        .query-required {
+            color: #e54c45;
+            margin-right: 3px;
+        }
+
+        .query-input {
+            width: 420px;
+            height: 38px;
+            border: 1px solid #ececec;
+            border-radius: 2px;
+            padding: 0 12px;
+            color: #333;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .query-input:focus {
+            border-color: #3a9bf2;
+        }
+
+        .query-link {
+            margin-left: 12px;
+            color: #6ea9d9;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .query-link:hover {
+            color: #3a9bf2;
+            text-decoration: none;
+        }
+
+        .query-unit {
+            color: #555;
+            font-size: 14px;
+        }
+
+        .query-submit {
+            min-width: 72px;
+            height: 34px;
+            line-height: 34px;
+            padding: 0 18px;
+            margin-left: 130px;
+            border-radius: 3px;
+        }
+
+        .query-error {
+            margin: -4px 0 0 130px;
+            min-height: 24px;
+            line-height: 24px;
+            color: #d93025;
+            font-size: 14px;
+        }
+
+        .result-panel {
+            display: none;
+        }
+
+        .result-back-btn {
+            min-width: 72px;
+            height: 34px;
+            line-height: 34px;
+            border-radius: 3px;
+        }
+
+        @media (max-width: 1000px) {
+            .score-query-wrapper {
+                width: 92%;
+            }
+
+            .score-sub-title {
+                font-size: 30px;
+            }
+
+            .query-row {
+                flex-wrap: wrap;
+            }
+
+            .query-label {
+                width: 100%;
+                text-align: left;
+                margin-bottom: 8px;
+            }
+
+            .query-input {
+                width: 100%;
+            }
+
+            .query-link {
+                margin: 8px 0 0;
+            }
+
+            .query-submit,
+            .query-error {
+                margin-left: 0;
+            }
+
+            .cjcx-box {
+                padding: 20px;
+            }
+
+            .cjxx-info {
+                width: 100%;
+            }
+
+            .cjcx-bz {
+                position: static;
+                width: auto;
+                margin-top: 18px;
+                right: auto;
+                top: auto;
+            }
+        }
+    </style>
+    <script type="text/javascript">// 统计脚本已移除（本地静态版）</script>
+<script>
+function gaTrackerOutboundLink(params) { //ga链接埋点
+    gtag('event', params.eventAction, {
+        'event_category': params.eventCategory,
+        'event_label': params.eventLabel
+    });
+    return true;
+};
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-100524-7', {'sample_rate': 5});
+</script>
+</head>
+<body class="ch-sticky">
+    <div id="appLoading" style="display: none;">
+        <div class="spin-loading">
+            <div class="spinner">
+                <div class="rect1"></div>
+                <div class="rect2"></div>
+                <div class="rect3"></div>
+                <div class="rect4"></div>
+                <div class="rect5"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-wrapper-org">
+        <!-- 吊顶区域 -->
+<style>
+    body {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    .top-nav-wrapper {
+        width: 100%;
+        height: 48px;
+        line-height: 48px;
+        background: #fff;
+        font-size: 14px;
+        box-sizing: border-box;
+        box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.05);
+        z-index: 100;
+        position: relative;
+    }
+    .top-nav-wrapper a {
+        color: #2b2e33;
+    }
+    .top-nav-wrapper a:hover {
+        color: #1887e0;
+        font-weight: 700;
+        text-decoration: none;
+    }
+    .top-nav-wrapper .top-nav {
+        width: 1180px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+    }
+    .top-nav-wrapper .top-nav-list {
+        flex: 1;
+        height: 48px;
+        display: flex;
+        align-items: center;
+    }
+    .top-nav-wrapper .top-nav-list a {
+        margin-right: 20px;
+    }
+    .top-nav-wrapper .top-nav-list a.top-nav-home {
+        display: inline-block;
+        width: 98px;
+        height: 36px;
+        margin-right: 20px;
+        margin-left: 0px;
+        background-image: url("./assets/images/logo-min.png");
+        background-image: -webkit-image-set(
+            url("./assets/images/logo-min.png") 1x,
+            url("./assets/images/logo-min2x.png") 2x
+        );
+        background-repeat: no-repeat;
+        background-position: center left;
+    }
+    .top-nav-hide {
+        position: relative;
+        cursor: pointer;
+        color: #2b2e33;
+    }
+    .top-nav-hide:hover {
+        color: #2b2e33;
+    }
+    .top-nav-hide:hover .top-nav-pop {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .top-nav-pop {
+        padding: 18px 30px 18px 16px;
+        visibility: hidden;
+        box-sizing: border-box;
+        background-color: #fff;
+        color: #2b2e33;
+        text-align: center;
+        border-radius: 6px;
+        position: absolute;
+        z-index: 1;
+        top: 44px;
+        left: 50%;
+        transform: translateX(-50%);
+        opacity: 0;
+        transition: opacity 0.3s;
+        box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.12);
+        font-size: 12px;
+        line-height: 20px;
+        display: flex;
+    }
+    .top-nav-pop-arrow {
+        display: block;
+        width: 0;
+        height: 0;
+        position: absolute;
+        border-color: transparent;
+        border-style: solid;
+        left: 50%;
+        margin-left: -14px;
+        top: -7px;
+        border-width: 0 7px 7px;
+        border-bottom-color: rgba(0, 0, 0, 0.03);
+    }
+    .top-nav-pop-arrow::after {
+        display: block;
+        content: '';
+        width: 0;
+        height: 0;
+        position: absolute;
+        border-color: transparent;
+        border-style: solid;
+        left: 50%;
+        margin-left: -7px;
+        top: 1px;
+        border-width: 0 7px 7px;
+        border-bottom-color: #fff;
+    }
+    .top-nav-wrapper .top-nav-list a.top-nav-home:hover {
+        text-decoration: none;
+    }
+    .top-nav-wrapper .top-nav-load {
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+    }
+    .top-nav-wrapper a.username {
+        flex: 1;
+        color: #1887e0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: right;
+    }
+    .top-nav-pop-clo {
+        font-size: 14px;
+        line-height: 22px;
+        margin-right: 22px;
+    }
+    .top-nav-pop-clo:last-child {
+        margin-right: 0;
+    }
+    .top-nav-wrapper .top-nav-pop-clo a {
+        display: block;
+        margin-right: 0;
+        white-space: nowrap;
+        text-align: left;
+        margin-bottom: 8px;
+    }
+    .top-nav-wrapper .top-nav-pop-clo a:last-child {
+        margin-bottom: 0;
+    }
+    .top-nav-more {
+        display: flex;
+        align-items: center;
+    }
+    .top-nav-hide:hover .top-nav-more {
+        color: #1887e0;
+        font-weight: 700;
+    }
+    .top-nav-more img {
+        width: 14px;
+        margin-left: 4px;
+        transform: rotate(90deg);
+    }
+    .top-nav-hide:hover img {
+        transform: rotate(-90deg);
+    }
+    .info-line {
+        display: block;
+        width: 1px;
+        height: 12px;
+        background: #e8eaed;
+        margin: 0 12px;
+    }
+    .top-nav-wrapper.active .seach-toggel {
+        display: none;
+    }
+    .search-cancel {
+        display: none;
+        margin-left: 12px;
+        cursor: pointer;
+    }
+    .top-nav-wrapper.active .search-cancel{
+        display: block;
+    }
+    .top-nav-load-search {
+        display: block;
+        width: 20px;
+        height: 20px;
+        background: url("./assets/images/icon-search.svg") center center no-repeat;
+        cursor: pointer;
+    }
+    .top-nav-search-input {
+        display: none;
+    }
+    .top-nav-search-input .search-input {
+        display: block;
+        width: 200px;
+        border: 1px solid #D5D7DB;
+        height: 30px;
+        background: #FFF;
+        border-radius: 4px;
+        outline: none;
+        padding: 0 28px 0 8px;
+        box-sizing: border-box;
+    }
+    .top-nav-search-input .search-input:focus {
+        border: 1px solid #1887E0;
+    }
+    .top-nav-wrapper.active .top-nav-search-input {
+        display: block;
+    }
+    .top-nav-wrapper.active .top-nav-load {
+        max-width: none;
+    }
+    .site-search {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+    .top-nav-wrapper.active .top-nav-load-search {
+        display: none;
+    }
+    .top-nav-wrapper.active .search-button {
+        display: block;
+        width: 20px;
+        height: 20px;
+        background: url("./assets/images/icon-search.svg") center center no-repeat;
+        cursor: pointer;
+        border: none;
+        outline: none;
+        position: absolute;
+        right: 8px;
+        top: 5px;
+    }
+    .top-nav-load-info {
+        display: flex;
+        align-items: center;
+    }
+</style>
+<div class="top-nav-wrapper">
+    <div class="top-nav">
+        <div class="top-nav-list" onmousedown="handleLinkClick(event, 'pc-二级导航')">
+            <a href="/" class="top-nav-home">&ensp;</a>
+            <a class="seach-toggel" href="/">首页</a>
+            <a class="seach-toggel" href="/kyzx/zcdh/">国家政策</a>
+            <a class="seach-toggel" href="/kyzx/kydt/">资讯</a>
+            <a class="seach-toggel" href="/sch/">院校库</a>
+            <a class="seach-toggel" href="/zsml/">硕士目录</a>
+            <a class="seach-toggel" href="/sswbgg/">网报公告</a>
+            <a class="seach-toggel" href="/yzwb/">统考网报</a>
+            <a class="seach-toggel" href="/wsqr/stu/">网上确认</a>
+            <a class="seach-toggel" href="/apply/cjcx/">成绩查询</a>
+            <a class="seach-toggel" href="/yztj/">复试调剂</a>
+            <a class="seach-toggel" href="/tm/">推免服务</a>
+            <a class="seach-toggel" href="/zsgs/">信息公开</a>
+            <span class="top-nav-hide seach-toggel">
+                <span class="top-nav-more">更多<img src="./assets/nav-next.svg" class="nav-next"></span>
+                <div class="top-nav-pop">
+                    <span class="top-nav-pop-arrow"></span>
+                    <div class="top-nav-pop-clo">
+                        <a href="/kyzx/jybzc/">教育部政策</a>
+                        <a href="https://yz.chsi.com.cn/kyzx/zt/kyfs2025.shtml">复试分数线</a>
+                        <a href="https://yz.chsi.com.cn/yzzt/glllk">管理类专硕</a>
+                    </div>
+                    <div class="top-nav-pop-clo">
+                        <a href="/kyzx/yxzc/">院校政策</a>
+                        <a href="https://yz.chsi.com.cn/yzzt/zbft">研招访谈</a>
+                        <a href="https://yz.chsi.com.cn/kyzx/zt/zsxz.shtml">专业学位</a>
+                    </div>
+                    <div class="top-nav-pop-clo">
+                        <a href="/kyzx/zsjz/">招生简章</a>
+                        <a href="/bsmlcx/">博士目录</a>
+                        <a href="/zyk/">专业库</a>
+                    </div>
+                    <div class="top-nav-pop-clo">
+                        <a href="/zxdy/">在线咨询</a>
+                        <a href="/bsbm/">博士网报</a>
+                    </div>
+                </div>
+            </span>
+        </div>
+        <div class="top-nav-load">
+            <div class="top-nav-search-input" id="top-nav-input">
+                <form class="site-search" action="https://cn.bing.com/search" target="_blank" method="get">
+                    <input type="hidden" class="realQuery" name="q" value="">
+                    <input placeholder="" type="text" name="query" autocomplete="off" id="top-nav-search-input" class="search-input" value="" maxlength="100">
+                    <button type="submit" class="search-button"></button>
+                </form>
+            </div>
+            <span class="search-cancel">取消</span>
+            <span class="top-nav-load-search" id="top-nav-search"></span>
+            <span class="info-line"></span>
+            <a href="/user/">用户中心</a>
+            <span class="info-line"></span>
+            <a href="https://account.chsi.com.cn/account/preregister.action?from=yz-home">注册</a>
+        </div>
+    </div>
+</div>
+<script>
+function handleLinkClick(event, type) {
+    event = event || window.event;
+    var target = event.target || event.srcElement;
+
+    var link = findClosestLink(target);
+    if (link) {
+        var href = link.getAttribute('href');
+        var label = link.textContent.trim();
+
+        gaTrackerOutboundLink({ eventCategory: type, eventAction: 'click', eventLabel: label });
+    }
+}
+
+function findClosestLink(element) {
+    while (element && element.nodeName !== 'A') {
+        element = element.parentNode;
+    }
+    if (element) {
+        return element;
+    }
+    return null;
+}
+document.addEventListener('DOMContentLoaded', function () {
+    const topNavSearch = document.getElementById('top-nav-search');
+    const searchCancel = document.querySelector('.search-cancel');
+    const searchInput = document.querySelector('.search-input');
+    const realQuery = document.querySelector('.realQuery');
+    const searchForm = document.querySelector('.site-search');
+
+    // 点击搜索图标：显示输入框（添加 active 类）
+    if (topNavSearch) {
+        topNavSearch.addEventListener('click', function (event) {
+            event.stopPropagation();
+            document.querySelector('.top-nav-wrapper').classList.add('active');
+            searchInput.focus();
+        });
+    }
+
+    // 点击取消按钮：移除 active 类
+    if (searchCancel) {
+        searchCancel.addEventListener('click', function (event) {
+            document.querySelector('.top-nav-wrapper').classList.remove('active');
+        });
+    }
+
+    // 点击文档其他地方：移除 active 类
+    document.addEventListener('click', function (event) {
+        const wrapper = document.querySelector('.top-nav-wrapper');
+        if (wrapper && !wrapper.contains(event.target)) {
+            wrapper.classList.remove('active');
+        }
+    });
+
+    // 提交表单前处理搜索词
+    if (searchForm) {
+        searchForm.addEventListener('submit', function (e) {
+            e.preventDefault(); // 阻止默认提交
+
+            const val = searchInput.value.trim();
+
+            if (!val) {
+                alert("请输入关键词");
+                return;
+            }
+
+            // 设置 realQuery 的值为关键词 + site:xxx
+            realQuery.value = val + ' site:yz.chsi.com.cn';
+
+            // 手动提交表单
+            searchForm.submit();
+        });
+    }
+});
+</script>
+        <div class="yz-header-banner-wrapper">
+            <div class="banner">
+                <h1>2026年部分考生初试成绩查询</h1>
+                <div class="ch-sub-title">本系统所有数据均为招生单位提供，招生单位对查询结果负责解释。</div>
+            </div>
+        </div>
+        <div id="app" class="container clearfix score-page">
+            <div id="schoolSelectPage" class="score-select-page">
+                <div class="score-sub-title">2026年部分考生初试成绩查询</div>
+                <div class="score-divider"></div>
+                <div class="wbgg-row clearfix">
+                    <div class="wbgg-tab-wrapper clearfix">
+                        <div class="item-content active">
+                            <ul id="regionTabs" class="wbgg-ss-list clearfix"></ul>
+                        </div>
+                    </div>
+                    <div class="wbgg-list">
+                        <div id="schoolDefaultTip" class="wbgg-default-content">
+                            <i class="iconfont">&#xe649;</i>
+                            <span class="c-grey">请选择招生单位所在省市进行查询</span>
+                        </div>
+                        <div id="schoolListContainer" class="wbgg_list" style="position: relative; display: none;">
+                            <div class="score-list-alert">
+                                列表中蓝色条目可进入本地静态成绩查询页面，灰色条目表示暂未收录本地成绩样例。
+                            </div>
+                            <table class="ch-table" id="schoolsTable">
+                                <thead>
+                                    <tr>
+                                        <th width="25%">
+                                            <span class="title-highlight" id="selectedRegionName"></span>
+                                            成绩查询
+                                        </th>
+                                        <th width="25%"></th>
+                                        <th width="25%"></th>
+                                        <th width="25%"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="schoolsTableBody"></tbody>
+                            </table>
+                            <div class="wbgg-page-tip">注：该页面为本地静态演示数据入口，具体成绩解释以招生单位通知为准。</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="queryPage" class="score-query-page">
+                <div class="score-sub-title">2026年部分考生初试成绩查询</div>
+                <div class="score-divider"></div>
+
+                <div id="queryPanel" class="score-query-wrapper">
+                    <div class="query-row query-switch-row">
+                        <a id="backToSelectLink" class="query-switch-link" href="#">返回院校列表</a>
+                    </div>
+                    <div class="score-alert-tip">姓名、证件号码、准考证号必填。</div>
+                    <form id="scoreQueryForm" novalidate>
+                        <div class="query-row">
+                            <label class="query-label" for="queryName"><span class="query-required">*</span>姓名：</label>
+                            <input id="queryName" class="query-input" type="text" autocomplete="off" placeholder="请输入">
+                        </div>
+                        <div class="query-row">
+                            <label class="query-label" for="queryIdCard"><span class="query-required">*</span>证件号码：</label>
+                            <input id="queryIdCard" class="query-input" type="text" autocomplete="off" placeholder="请输入">
+                        </div>
+                        <div class="query-row">
+                            <label class="query-label" for="queryTicket"><span class="query-required">*</span>准考证号：</label>
+                            <input id="queryTicket" class="query-input" type="text" autocomplete="off" placeholder="请输入">
+                            <a id="forgotTicketLink" class="query-link" href="#">忘记准考证号</a>
+                        </div>
+                        <div class="query-row">
+                            <div class="query-label"><span class="query-required">*</span>报考单位：</div>
+                            <div id="querySchoolText" class="query-unit">（请先从上一页选择报考单位）</div>
+                        </div>
+                        <div class="query-row">
+                            <button type="submit" class="ch-btn ch-btn-primary query-submit">查询</button>
+                        </div>
+                        <div id="queryError" class="query-error" aria-live="polite"></div>
+                    </form>
+                </div>
+
+                <div id="resultPanel" class="result-panel">
+                    <div class="cjcx-box">
+                        <table class="cjxx-info">
+                            <tbody>
+                                <tr>
+                                    <td class="cjxx-info-title">姓名：</td>
+                                    <td id="resName" class="cjxx-info-content"></td>
+                                </tr>
+                                <tr>
+                                    <td class="cjxx-info-title">报名号：</td>
+                                    <td id="resRegNo" class="cjxx-info-content"></td>
+                                </tr>
+                                <tr>
+                                    <td class="cjxx-info-title">准考证号：</td>
+                                    <td id="resTicketNo" class="cjxx-info-content"></td>
+                                </tr>
+                                <tr class="cjxx-info-cut">
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="cjxx-info-title">总分：</td>
+                                    <td id="resTotal" class="cjxx-info-content"></td>
+                                </tr>
+                                <tr>
+                                    <td class="cjxx-info-title">第一门：</td>
+                                    <td id="resSub1" class="cjxx-info-content"></td>
+                                </tr>
+                                <tr>
+                                    <td class="cjxx-info-title">第二门：</td>
+                                    <td id="resSub2" class="cjxx-info-content"></td>
+                                </tr>
+                                <tr>
+                                    <td class="cjxx-info-title">第三门：</td>
+                                    <td id="resSub3" class="cjxx-info-content"></td>
+                                </tr>
+                                <tr>
+                                    <td class="cjxx-info-title">第四门：</td>
+                                    <td id="resSub4" class="cjxx-info-content"></td>
+                                </tr>
+                                <tr class="cjxx-info-cut">
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="cjxx-info-title">备注：</td>
+                                    <td id="resRemark" class="cjxx-info-content"></td>
+                                </tr>
+                                <tr>
+                                    <td class="cjxx-info-title"></td>
+                                    <td class="cjxx-info-content">
+                                        <button id="backToQueryBtn" type="button" class="ch-btn ch-btn-primary result-back-btn">返回</button>
+                                        <button id="resultToSelectBtn" type="button" class="ch-btn result-back-btn" style="margin-left: 8px;">院校列表</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="cjcx-bz">
+                            <h3 class="cjcx-bz-title">招生单位说明</h3>
+                            <div class="cjcx-bz-content">
+                                <p id="resSchoolName" class="ch-paragraph14"></p>
+                                <p id="resSchoolNote" class="ch-paragraph14"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cjcx-tip">
+                        <p class="ch-paragraph14">
+                            注：若查询成绩为负值，表示缺考；若对查询结果有疑问，请咨询对应招生单位。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 4: 底部区域 -->
+<style>
+    /**
+     * description: footer 共用底部;
+     * author:myx;
+     * date:2017-07;
+     */
+
+    .footer-wrapper {
+        line-height: 30px;
+        background: #282828;
+        color: #ababab;
+    }
+
+    .footer-wrapper a {
+        color: #ababab;
+    }
+
+    .footer-wrapper .footer {
+        position: relative;
+        width: 1180px;
+        height: 198px;
+        margin: 0 auto;
+    }
+
+    .footer-wrapper .footer-list {
+        position: absolute;
+        top: 32px;
+        left: 0px;
+    }
+
+    .footer-wrapper .footer-list a {
+        margin-right: 15px;
+    }
+
+    .footer-wrapper .footer-units {
+        position: absolute;
+        top: 75px;
+        left: 0px;
+    }
+
+    .footer-wrapper .footer-media {
+        position: absolute;
+        top: 32px;
+        left: 844px;
+    }
+
+    .footer-wrapper .footer-media a {
+        display: inline-block;
+        margin-right: 30px;
+        vertical-align: top;
+    }
+
+    .footer-wrapper .footer-media a:hover {
+        text-decoration: none;
+    }
+
+    .footer-wrapper .footer-media .iconfont {
+        margin-right: 5px;
+        font-size: 20px;
+        vertical-align: middle;
+    }
+
+    .footer-wrapper .svg-icon {
+        display: inline-block;
+        width: 20px;
+        height: 23px;
+        margin-right: 3px;
+        vertical-align: middle;
+    }
+
+    .footer-wrapper svg use {
+        color: #ababab;
+    }
+
+    .footer-wrapper .footer-msg {
+        position: absolute;
+        top: 75px;
+        left: 844px;
+    }
+</style>
+<svg style="display: block; width: 0; height: 0">
+    <defs>
+        <symbol id="weibo" viewBox="0 0 16 16">
+            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g transform="translate(-139.000000, -4036.000000)" fill="currentColor" fill-rule="nonzero">
+                    <g transform="translate(139.000000, 4036.000000)">
+                        <rect opacity="0" x="0" y="0" width="16" height="16"></rect>
+                        <path
+                            d="M10.565,3.6325 C10.565,3.6325 12.335,3.445 13.0875,4.5425 C13.84,5.64 13.515,7.02 13.515,7.02 C13.4949253,7.12321653 13.5233752,7.22993417 13.5921672,7.30945968 C13.6609592,7.38898519 13.7624686,7.43250415 13.8675,7.4275 L14.0425,7.4275 C14.2747485,7.42111375 14.4682944,7.24766281 14.5,7.0175 C14.5,7.0175 14.9075,4.8525 13.65,3.6475 C12.67,2.705 11.3275,2.6025 10.79,2.6025 L10.5525,2.6025 C10.3240422,2.60790517 10.1412883,2.79398193 10.1399581,3.0225 L10.1399581,3.2275 C10.1383884,3.33892927 10.183335,3.44597927 10.264011,3.52285878 C10.3446871,3.59973829 10.4537777,3.63947671 10.565,3.6325 L10.565,3.6325 Z M7.08,11.845 C8.315,11.595 9.15,10.565 8.9475,9.5225 C8.7725,8.625 7.8875,8.0225 6.8575,8.0225 C6.6895953,8.02269714 6.52211889,8.03944478 6.3575,8.0725 C5.1225,8.3225 4.2875,9.3525 4.49,10.395 C4.6925,11.4375 5.8475,12.085 7.08,11.845 Z M7.115,9.1625 C7.27228055,9.15431868 7.41868486,9.24275691 7.48462743,9.38578027 C7.55057,9.52880363 7.52275233,9.69756891 7.41439607,9.8118625 C7.3060398,9.9261561 7.13899693,9.96292865 6.99266239,9.90470229 C6.84632786,9.84647593 6.75021264,9.70499305 6.75,9.5475 C6.7484414,9.34193445 6.90964354,9.17189932 7.115,9.1625 L7.115,9.1625 Z M5.75,9.765 C6.13,9.5875 6.5475,9.6775 6.68,9.9675 C6.8125,10.2575 6.625,10.635 6.25,10.8125 C6.12707576,10.8701293 5.99325221,10.9008149 5.8575,10.9025 C5.63577697,10.9190371 5.42511864,10.80342 5.32,10.6075 C5.18,10.32 5.3775,9.9425 5.75,9.765 Z"></path>
+                        <path
+                            d="M7.305,13.3975 C10.555,13.3975 13.155,11.675 13.155,9.5475 C13.155,7.7525 10.94,7.7525 10.94,7.635 C10.94,7.5175 12.045,6.4775 10.94,5.8275 C10.28,5.4375 9.29,5.6375 8.615,5.8275 C8.37593476,5.92066948 8.13025327,5.9958781 7.88,6.0525 C8.75,4.535 7.51,4.0525 6.88,4.0525 C5.38,4.0525 1.4325,7.41 1.4325,9.535 C1.4325,11.66 4.06,13.3975 7.305,13.3975 L7.305,13.3975 Z M6.7675,7.2625 C8.84,6.97 10.6775,7.845 10.87,9.2125 C11.0625,10.58 9.5375,11.9275 7.4625,12.2125 C7.19993139,12.2492176 6.93512346,12.2675954 6.67,12.2675004 C4.94,12.2675004 3.53,11.4525 3.3625,10.2675 C3.17,8.9 4.695,7.5525 6.7675,7.2625 L6.7675,7.2625 Z"></path>
+                        <path
+                            d="M12.1975,6.94 L12.4475,6.94 C12.6059157,6.93686389 12.7404701,6.82317064 12.77,6.6675 C12.77,6.6675 13.065,5.525 12.38,4.9 C12.0543816,4.60954157 11.6312754,4.45243883 11.195,4.46 C11.06222,4.45779075 10.9296415,4.47121643 10.8,4.5 C10.6460069,4.52717522 10.5322284,4.65869897 10.5275,4.815 L10.5275,4.9225 C10.523244,4.99648918 10.5520351,5.06855315 10.6061021,5.11924105 C10.6601692,5.16992894 10.7339389,5.19401568 10.8075,5.185 C10.8075,5.185 11.5575,5.0825 11.9225,5.5225 C12.2875,5.9625 12.0025,6.675 12.0025,6.675 C11.9769169,6.73717397 11.9856249,6.80819055 12.0254718,6.86234147 C12.0653188,6.9164924 12.1305304,6.94593085 12.1975,6.94 Z"></path>
+                    </g>
+                </g>
+            </g>
+        </symbol>
+        <symbol id="weixin" viewBox="0 0 17 16">
+            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g transform="translate(-118.000000, -4036.000000)" fill-rule="nonzero">
+                    <g transform="translate(118.000000, 4036.000000)">
+                        <rect fill="#000000" opacity="0" x="0" y="0" width="16" height="16"></rect>
+                        <path
+                            d="M6.33075,2 C3.4003125,2 1,3.99745313 1,6.53370312 C1,7.99773437 1.7986875,9.19954687 3.13267188,10.1306562 L2.5995,11.734625 L4.46289062,10.7997656 C5.129875,10.9321719 5.6646875,11.0676406 6.33003125,11.0676406 C6.49725,11.0676406 6.66329688,11.0594062 6.8276875,11.0462344 C6.72373438,10.6894531 6.66329688,10.3164531 6.66329688,9.92932812 C6.66329688,7.6016875 8.66332812,5.71171875 11.1955781,5.71171875 C11.3682031,5.71171875 11.5391875,5.72442187 11.709,5.74323437 C11.2477969,3.59573437 8.95190625,2 6.33075,2 L6.33075,2 Z M4.5990625,5.5990625 C4.19971875,5.5990625 3.796375,5.33142188 3.796375,4.93184375 C3.796375,4.53060938 4.19971875,4.26673438 4.5990625,4.26673438 C4.99840625,4.26673438 5.26464063,4.53085938 5.26464063,4.93184375 C5.26440625,5.33142188 4.99840625,5.59907813 4.5990625,5.59907813 L4.5990625,5.5990625 Z M8.32984375,5.5990625 C7.93025,5.5990625 7.52925,5.33142188 7.52925,4.93184375 C7.52925,4.53060938 7.93025,4.26673438 8.32982812,4.26673438 C8.73129687,4.26673438 8.9970625,4.53085938 8.9970625,4.93184375 C8.9970625,5.33142188 8.7310625,5.59907813 8.32982812,5.59907813 L8.32984375,5.5990625 Z M16.061125,9.86559375 C16.061125,7.73575 13.9284688,5.99865625 11.5333125,5.99865625 C8.9970625,5.99865625 6.999375,7.73575 6.999375,9.86559375 C6.999375,12.0001562 8.9970625,13.7337187 11.5333125,13.7337187 C12.064125,13.7337187 12.5991719,13.600125 13.1325781,13.4663125 L14.5949687,14.2668906 L14.1939844,12.9345469 C15.2638438,12.1323281 16.061125,11.067875 16.061125,9.86559375 L16.061125,9.86559375 Z M10.0631563,9.19954687 C9.797625,9.19954687 9.52975,8.93590625 9.52975,8.66660938 C9.52975,8.400625 9.797625,8.13296875 10.0631563,8.13296875 C10.4665,8.13296875 10.7303906,8.400625 10.7303906,8.66660938 C10.7303906,8.93590625 10.4665,9.19954687 10.0631563,9.19954687 Z M12.9954687,9.19954687 C12.7318281,9.19954687 12.4658281,8.93590625 12.4658281,8.66660938 C12.4658281,8.400625 12.7318281,8.13296875 12.9954687,8.13296875 C13.3948125,8.13296875 13.6626875,8.400625 13.6626875,8.66660938 C13.6626875,8.93590625 13.3948125,9.19954687 12.9954687,9.19954687 Z"
+                            fill="currentColor"></path>
+                    </g>
+                </g>
+            </g>
+        </symbol>
+    </defs>
+</svg>
+<div class="footer-wrapper">
+    <div class="footer">
+        <div class="footer-list">
+            <a href="//www.chsi.com.cn/" target="_blank">学信网</a>
+            <a href="https://chesicc.chsi.com.cn/zxgw/zxjs/201604/20160418/1529506207.html" target="_blank">中心简介</a>
+            <a href="/doc/about.jsp" target="_blank">关于我们</a>
+            <a href="/doc/copyright.jsp" target="_blank">版权声明</a>
+            <a href="/help/" target="_blank">帮助中心</a>
+            <a href="/sitemap.jsp" target="_blank">网站地图</a>
+            <a href="https://www.chsi.com.cn/ad/202403/20240322/2293272455.html" target="_blank">网站宣传</a>
+        </div>
+        <div class="footer-units">
+            主办单位：<a href="https://chesicc.chsi.com.cn/" target="_blank">教育部学生服务与素质发展中心</a><br>
+            Copyright © 2003-<span>2026</span> <a href="//www.chsi.com.cn/" target="_blank">学信网</a> All Rights Reserved<br>
+            <a href="https://beian.miit.gov.cn" target="_blank">京ICP备19004913号-1</a>
+            <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010202009747" target="_blank">
+                <img src="./assets/jgwab.svg" style="vertical-align: middle; margin-bottom: 2px; margin-left: 8px;">
+                京公网安备11010202009747号
+            </a>
+        </div>
+        <div class="footer-media">
+            <a href="/kyzx/kp/wbwx.shtml" target="_blank">
+                <svg class="svg-icon">
+                    <use xlink:href="#weixin"></use>
+                </svg>
+                官方微信
+            </a>
+            <a href="/kyzx/kp/wbwx.shtml" target="_blank">
+                <svg class="svg-icon">
+                    <use xlink:href="#weibo"></use>
+                </svg>
+                官方微博
+            </a>
+        </div>
+        <div class="footer-msg">
+            客服热线：010-67410388<br>
+            客服邮箱：kefu@chsi.com.cn
+        </div>
+    </div>
+</div>
+
+    <script type="text/javascript" src="./data/region-schools.js"></script>
+    <script>
+    (function () {
+        var SCORE_RECORDS = [
+            {
+                name: "王晨曦",
+                idCard: "110101200105063218",
+                ticketNo: "100010001",
+                registrationNo: "202611010001",
+                schoolCode: "10001",
+                schoolName: "北京大学",
+                region: "北京",
+                total: 392,
+                subjects: [
+                    { name: "(101)思想政治理论", score: 74 },
+                    { name: "(201)英语（一）", score: 70 },
+                    { name: "(301)数学（一）", score: 127 },
+                    { name: "(408)计算机学科专业基础", score: 121 }
+                ],
+                remark: "无",
+                schoolNote: "我校不再另行寄发书面成绩单，复试安排请关注研究生院官网通知。"
+            },
+            {
+                name: "李思远",
+                idCard: "110108200203145612",
+                ticketNo: "100030002",
+                registrationNo: "202611020002",
+                schoolCode: "10003",
+                schoolName: "清华大学",
+                region: "北京",
+                total: 401,
+                subjects: [
+                    { name: "(101)思想政治理论", score: 78 },
+                    { name: "(201)英语（一）", score: 75 },
+                    { name: "(301)数学（一）", score: 132 },
+                    { name: "(408)计算机学科专业基础", score: 116 }
+                ],
+                remark: "无",
+                schoolNote: "成绩复核申请时间和流程以我校研招网后续公告为准。"
+            },
+            {
+                name: "周雨桐",
+                idCard: "120101200104224596",
+                ticketNo: "100550003",
+                registrationNo: "202612010003",
+                schoolCode: "10055",
+                schoolName: "南开大学",
+                region: "天津",
+                total: 376,
+                subjects: [
+                    { name: "(101)思想政治理论", score: 71 },
+                    { name: "(201)英语（一）", score: 68 },
+                    { name: "(303)数学（三）", score: 119 },
+                    { name: "(815)管理学综合", score: 118 }
+                ],
+                remark: "无",
+                schoolNote: "如对成绩有疑问，请在规定时间内通过研招管理系统提交复核申请。"
+            },
+            {
+                name: "赵嘉宁",
+                idCard: "310101200003153466",
+                ticketNo: "102460004",
+                registrationNo: "202631010004",
+                schoolCode: "10246",
+                schoolName: "复旦大学",
+                region: "上海",
+                total: 388,
+                subjects: [
+                    { name: "(101)思想政治理论", score: 73 },
+                    { name: "(201)英语（一）", score: 72 },
+                    { name: "(303)数学（三）", score: 128 },
+                    { name: "(845)经济学综合基础", score: 115 }
+                ],
+                remark: "无",
+                schoolNote: "请妥善保存成绩查询结果截图，后续资格审核可能需要提交。"
+            },
+            {
+                name: "吴彦博",
+                idCard: "320106199912063275",
+                ticketNo: "102840005",
+                registrationNo: "202632010005",
+                schoolCode: "10284",
+                schoolName: "南京大学",
+                region: "江苏",
+                total: 384,
+                subjects: [
+                    { name: "(101)思想政治理论", score: 70 },
+                    { name: "(201)英语（一）", score: 69 },
+                    { name: "(301)数学（一）", score: 125 },
+                    { name: "(912)数据结构与算法", score: 120 }
+                ],
+                remark: "无",
+                schoolNote: "复试相关信息将通过研究生院网站统一发布，请及时关注。"
+            },
+            {
+                name: "孙雅琪",
+                idCard: "330102200101182519",
+                ticketNo: "103350006",
+                registrationNo: "202633010006",
+                schoolCode: "10335",
+                schoolName: "浙江大学",
+                region: "浙江",
+                total: 395,
+                subjects: [
+                    { name: "(101)思想政治理论", score: 76 },
+                    { name: "(201)英语（一）", score: 74 },
+                    { name: "(301)数学（一）", score: 129 },
+                    { name: "(408)计算机学科专业基础", score: 116 }
+                ],
+                remark: "无",
+                schoolNote: "成绩证明请按我校研招网发布的办理流程在线申请。"
+            },
+            {
+                name: "胡景行",
+                idCard: "420106200011294231",
+                ticketNo: "104860007",
+                registrationNo: "202642010007",
+                schoolCode: "10486",
+                schoolName: "武汉大学",
+                region: "湖北",
+                total: 382,
+                subjects: [
+                    { name: "(101)思想政治理论", score: 72 },
+                    { name: "(201)英语（一）", score: 71 },
+                    { name: "(303)数学（三）", score: 124 },
+                    { name: "(860)软件工程基础", score: 115 }
+                ],
+                remark: "无",
+                schoolNote: "如成绩显示异常，请联系报考学院研究生教学办公室核实。"
+            },
+            {
+                name: "林可欣",
+                idCard: "440104200012183924",
+                ticketNo: "105580008",
+                registrationNo: "202644010008",
+                schoolCode: "10558",
+                schoolName: "中山大学",
+                region: "广东",
+                total: 379,
+                subjects: [
+                    { name: "(101)思想政治理论", score: 69 },
+                    { name: "(201)英语（一）", score: 70 },
+                    { name: "(303)数学（三）", score: 123 },
+                    { name: "(830)程序设计与数据结构", score: 117 }
+                ],
+                remark: "无",
+                schoolNote: "后续复试资格名单、时间安排请关注我校研究生招生网。"
+            },
+            {
+                name: "陈晨",
+                idCard: "510104199912120015",
+                ticketNo: "1000C",
+                registrationNo: "3",
+                schoolCode: "10610",
+                schoolName: "四川大学",
+                region: "四川",
+                total: 294,
+                subjects: [
+                    { name: "(101)思想政治理论", score: 55 },
+                    { name: "(201)英语（一）", score: 46 },
+                    { name: "(701)基础医学综合", score: 193 },
+                    null
+                ],
+                remark: "无",
+                schoolNote: "请各位考生保存好本人初试成绩，后续环节以我校研究生院网站通知为准。"
+            },
+            {
+                name: "高一鸣",
+                idCard: "610103200102104526",
+                ticketNo: "106980010",
+                registrationNo: "202661010010",
+                schoolCode: "10698",
+                schoolName: "西安交通大学",
+                region: "陕西",
+                total: 387,
+                subjects: [
+                    { name: "(101)思想政治理论", score: 74 },
+                    { name: "(201)英语（一）", score: 72 },
+                    { name: "(301)数学（一）", score: 126 },
+                    { name: "(912)自动控制原理", score: 115 }
+                ],
+                remark: "无",
+                schoolNote: "我校成绩复核只核查是否存在漏评漏统，不重新评阅试卷。"
+            },
+            {
+                name: "冯思琪",
+                idCard: "220102200007011633",
+                ticketNo: "101830011",
+                registrationNo: "202622010011",
+                schoolCode: "10183",
+                schoolName: "吉林大学",
+                region: "吉林",
+                total: 371,
+                subjects: [
+                    { name: "(101)思想政治理论", score: 68 },
+                    { name: "(201)英语（一）", score: 67 },
+                    { name: "(302)数学（二）", score: 122 },
+                    { name: "(830)机械设计基础", score: 114 }
+                ],
+                remark: "无",
+                schoolNote: "请在规定时段内完成复试确认，逾期视为自动放弃。"
+            },
+            {
+                name: "邵泽宇",
+                idCard: "230102199911123714",
+                ticketNo: "102130012",
+                registrationNo: "202623010012",
+                schoolCode: "10213",
+                schoolName: "哈尔滨工业大学",
+                region: "黑龙江",
+                total: 377,
+                subjects: [
+                    { name: "(101)思想政治理论", score: 69 },
+                    { name: "(201)英语（一）", score: 70 },
+                    { name: "(301)数学（一）", score: 123 },
+                    { name: "(870)控制理论基础", score: 115 }
+                ],
+                remark: "无",
+                schoolNote: "成绩查询结果仅供参考，正式成绩以学校发布文件为准。"
+            }
+        ];
+
+        var regions = (window.REGION_SCHOOLS_DATA && window.REGION_SCHOOLS_DATA.regions) ? window.REGION_SCHOOLS_DATA.regions : [];
+        var schoolSelectPage = document.getElementById("schoolSelectPage");
+        var queryPage = document.getElementById("queryPage");
+        var regionTabs = document.getElementById("regionTabs");
+        var schoolDefaultTip = document.getElementById("schoolDefaultTip");
+        var schoolListContainer = document.getElementById("schoolListContainer");
+        var selectedRegionName = document.getElementById("selectedRegionName");
+        var schoolsTableBody = document.getElementById("schoolsTableBody");
+        var form = document.getElementById("scoreQueryForm");
+        var queryPanel = document.getElementById("queryPanel");
+        var resultPanel = document.getElementById("resultPanel");
+        var appContainer = document.getElementById("app");
+        var nameInput = document.getElementById("queryName");
+        var idCardInput = document.getElementById("queryIdCard");
+        var ticketInput = document.getElementById("queryTicket");
+        var queryError = document.getElementById("queryError");
+        var querySchoolText = document.getElementById("querySchoolText");
+        var forgotTicketLink = document.getElementById("forgotTicketLink");
+        var backToSelectLink = document.getElementById("backToSelectLink");
+        var backBtn = document.getElementById("backToQueryBtn");
+        var resultToSelectBtn = document.getElementById("resultToSelectBtn");
+
+        if (!form || !queryPanel || !resultPanel || !schoolSelectPage || !queryPage) {
+            return;
+        }
+
+        var localSchoolMap = {};
+        for (var s = 0; s < SCORE_RECORDS.length; s++) {
+            localSchoolMap[SCORE_RECORDS[s].schoolCode] = true;
+        }
+
+        var selectedRegionCode = "";
+        var selectedSchool = null;
+
+        function normalizeText(value) {
+            return (value || "").replace(/\s+/g, "").trim();
+        }
+
+        function normalizeIdCard(value) {
+            return normalizeText(value).toUpperCase();
+        }
+
+        function getSafeTop() {
+            var targetTop = appContainer ? appContainer.offsetTop : 0;
+            return Math.max(targetTop - 20, 0);
+        }
+
+        function shortRegionName(name) {
+            return (name || "")
+                .replace(/维吾尔自治区$/, "")
+                .replace(/壮族自治区$/, "")
+                .replace(/回族自治区$/, "")
+                .replace(/特别行政区$/, "")
+                .replace(/自治区$/, "")
+                .replace(/省$/, "")
+                .replace(/市$/, "");
+        }
+
+        function setText(id, value) {
+            var element = document.getElementById(id);
+            if (element) {
+                element.textContent = value || "无";
+            }
+        }
+
+        function setQueryError(message) {
+            queryError.textContent = message || "";
+        }
+
+        function formatSubject(subject) {
+            if (!subject || !subject.name) {
+                return "无";
+            }
+            if (subject.score === null || subject.score === undefined || subject.score === "") {
+                return subject.name + ": 无";
+            }
+            return subject.name + ": " + subject.score;
+        }
+
+        function hasLocalScoreData(schoolCode) {
+            return !!localSchoolMap[schoolCode];
+        }
+
+        function findRegionByCode(code) {
+            for (var i = 0; i < regions.length; i++) {
+                if (regions[i].code === code) {
+                    return regions[i];
+                }
+            }
+            return null;
+        }
+
+        function findRecord(name, idCard, ticketNo, schoolCode) {
+            var upperTicketNo = ticketNo.toUpperCase();
+            for (var i = 0; i < SCORE_RECORDS.length; i++) {
+                var item = SCORE_RECORDS[i];
+                if (
+                    item.schoolCode === schoolCode &&
+                    normalizeText(item.name) === name &&
+                    normalizeIdCard(item.idCard) === idCard &&
+                    normalizeText(item.ticketNo).toUpperCase() === upperTicketNo
+                ) {
+                    return item;
+                }
+            }
+            return null;
+        }
+
+        function renderResult(record) {
+            setText("resName", record.name);
+            setText("resRegNo", record.registrationNo);
+            setText("resTicketNo", record.ticketNo);
+            setText("resTotal", String(record.total));
+            setText("resSub1", formatSubject(record.subjects[0]));
+            setText("resSub2", formatSubject(record.subjects[1]));
+            setText("resSub3", formatSubject(record.subjects[2]));
+            setText("resSub4", formatSubject(record.subjects[3]));
+            setText("resRemark", record.remark);
+            setText("resSchoolName", "报考单位：(" + record.schoolCode + ")" + record.schoolName + "（" + record.region + "）");
+            setText("resSchoolNote", record.schoolNote);
+        }
+
+        function showSelectPage() {
+            queryPage.style.display = "none";
+            schoolSelectPage.style.display = "block";
+            window.scrollTo(0, getSafeTop());
+        }
+
+        function showQueryPanel() {
+            resultPanel.style.display = "none";
+            queryPanel.style.display = "block";
+        }
+
+        function showQueryPage() {
+            schoolSelectPage.style.display = "none";
+            queryPage.style.display = "block";
+            showQueryPanel();
+            window.scrollTo(0, getSafeTop());
+        }
+
+        function showResultPanel() {
+            queryPanel.style.display = "none";
+            resultPanel.style.display = "block";
+            window.scrollTo(0, getSafeTop());
+        }
+
+        function resetQueryForm() {
+            form.reset();
+            setQueryError("");
+        }
+
+        function renderSchoolTable(schools) {
+            schoolsTableBody.innerHTML = "";
+            var rowCount = Math.ceil((schools || []).length / 4);
+            for (var i = 0; i < rowCount; i++) {
+                var row = document.createElement("tr");
+                for (var j = 0; j < 4; j++) {
+                    var cell = document.createElement("td");
+                    var school = schools[i * 4 + j];
+                    if (school) {
+                        var schoolText = "(" + school.code + ")" + school.name;
+                        if (hasLocalScoreData(school.code)) {
+                            var link = document.createElement("a");
+                            link.href = "#";
+                            link.className = "school-link";
+                            link.textContent = schoolText;
+                            (function (schoolItem) {
+                                link.addEventListener("click", function (event) {
+                                    event.preventDefault();
+                                    selectedSchool = schoolItem;
+                                    querySchoolText.textContent = "(" + schoolItem.code + ")" + schoolItem.name;
+                                    resetQueryForm();
+                                    showQueryPage();
+                                    nameInput.focus();
+                                });
+                            })(school);
+                            cell.appendChild(link);
+                        } else {
+                            var span = document.createElement("span");
+                            span.className = "school-link disabled";
+                            span.textContent = schoolText;
+                            span.title = "暂未收录该招生单位本地静态成绩数据";
+                            cell.appendChild(span);
+                        }
+                    }
+                    row.appendChild(cell);
+                }
+                schoolsTableBody.appendChild(row);
+            }
+        }
+
+        function updateRegionTabState() {
+            var tabItems = regionTabs.querySelectorAll("li");
+            for (var i = 0; i < tabItems.length; i++) {
+                var isSelected = tabItems[i].getAttribute("data-code") === selectedRegionCode;
+                tabItems[i].className = isSelected ? "selected" : "";
+            }
+        }
+
+        function selectRegion(code) {
+            var region = findRegionByCode(code);
+            if (!region) {
+                return;
+            }
+
+            selectedRegionCode = code;
+            updateRegionTabState();
+            selectedRegionName.textContent = shortRegionName(region.name);
+            schoolDefaultTip.style.display = "none";
+            schoolListContainer.style.display = "block";
+            renderSchoolTable(region.schools || []);
+        }
+
+        function renderRegionTabs() {
+            regionTabs.innerHTML = "";
+            for (var i = 0; i < regions.length; i++) {
+                var item = regions[i];
+                var li = document.createElement("li");
+                li.setAttribute("data-code", item.code);
+                li.textContent = shortRegionName(item.name);
+                (function (code) {
+                    li.addEventListener("click", function () {
+                        selectRegion(code);
+                    });
+                })(item.code);
+                regionTabs.appendChild(li);
+            }
+        }
+
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
+            setQueryError("");
+
+            if (!selectedSchool) {
+                setQueryError("请先返回上一页选择报考单位。");
+                return;
+            }
+
+            var name = normalizeText(nameInput.value);
+            var idCard = normalizeIdCard(idCardInput.value);
+            var ticketNo = normalizeText(ticketInput.value).toUpperCase();
+
+            if (!name || !idCard || !ticketNo) {
+                setQueryError("姓名、证件号码、准考证号均为必填项。");
+                return;
+            }
+
+            var record = findRecord(name, idCard, ticketNo, selectedSchool.code);
+            if (!record) {
+                setQueryError("未查询到匹配成绩，请核对输入信息并确认报考单位是否选择正确。");
+                return;
+            }
+
+            renderResult(record);
+            showResultPanel();
+        });
+
+        forgotTicketLink.addEventListener("click", function (event) {
+            event.preventDefault();
+            if (selectedSchool) {
+                setQueryError("请联系报考单位（" + selectedSchool.code + "）" + selectedSchool.name + "研招办找回准考证号。");
+            } else {
+                setQueryError("请先返回上一页选择报考单位。");
+            }
+        });
+
+        backToSelectLink.addEventListener("click", function (event) {
+            event.preventDefault();
+            showSelectPage();
+        });
+
+        backBtn.addEventListener("click", function () {
+            setQueryError("");
+            showQueryPanel();
+        });
+
+        resultToSelectBtn.addEventListener("click", function () {
+            showSelectPage();
+        });
+
+        renderRegionTabs();
+        showSelectPage();
+
+        gtag("event", "load", {
+            event_category: "cjcx",
+            event_label: "pc-local-2step"
+        });
+    })();
+    </script>
+</body>
+
+</html>
+
+
