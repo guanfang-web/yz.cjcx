@@ -821,7 +821,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         </div>
                         <div id="schoolListContainer" class="wbgg_list" style="position: relative; display: none;">
                             <div class="score-list-alert">
-                                列表中蓝色条目可进入本地静态成绩查询页面，灰色条目表示暂未收录本地成绩样例。
+                                列表中所有招生单位均可进入本地静态成绩查询页面。
                             </div>
                             <table class="ch-table" id="schoolsTable">
                                 <thead>
@@ -1107,225 +1107,6 @@ document.addEventListener('DOMContentLoaded', function () {
     <script type="text/javascript" src="./data/region-schools.js"></script>
     <script>
     (function () {
-        var SCORE_RECORDS = [
-            {
-                name: "王晨曦",
-                idCard: "110101200105063218",
-                ticketNo: "100010001",
-                registrationNo: "202611010001",
-                schoolCode: "10001",
-                schoolName: "北京大学",
-                region: "北京",
-                total: 392,
-                subjects: [
-                    { name: "(101)思想政治理论", score: 74 },
-                    { name: "(201)英语（一）", score: 70 },
-                    { name: "(301)数学（一）", score: 127 },
-                    { name: "(408)计算机学科专业基础", score: 121 }
-                ],
-                remark: "无",
-                schoolNote: "我校不再另行寄发书面成绩单，复试安排请关注研究生院官网通知。"
-            },
-            {
-                name: "李思远",
-                idCard: "110108200203145612",
-                ticketNo: "100030002",
-                registrationNo: "202611020002",
-                schoolCode: "10003",
-                schoolName: "清华大学",
-                region: "北京",
-                total: 401,
-                subjects: [
-                    { name: "(101)思想政治理论", score: 78 },
-                    { name: "(201)英语（一）", score: 75 },
-                    { name: "(301)数学（一）", score: 132 },
-                    { name: "(408)计算机学科专业基础", score: 116 }
-                ],
-                remark: "无",
-                schoolNote: "成绩复核申请时间和流程以我校研招网后续公告为准。"
-            },
-            {
-                name: "周雨桐",
-                idCard: "120101200104224596",
-                ticketNo: "100550003",
-                registrationNo: "202612010003",
-                schoolCode: "10055",
-                schoolName: "南开大学",
-                region: "天津",
-                total: 376,
-                subjects: [
-                    { name: "(101)思想政治理论", score: 71 },
-                    { name: "(201)英语（一）", score: 68 },
-                    { name: "(303)数学（三）", score: 119 },
-                    { name: "(815)管理学综合", score: 118 }
-                ],
-                remark: "无",
-                schoolNote: "如对成绩有疑问，请在规定时间内通过研招管理系统提交复核申请。"
-            },
-            {
-                name: "赵嘉宁",
-                idCard: "310101200003153466",
-                ticketNo: "102460004",
-                registrationNo: "202631010004",
-                schoolCode: "10246",
-                schoolName: "复旦大学",
-                region: "上海",
-                total: 388,
-                subjects: [
-                    { name: "(101)思想政治理论", score: 73 },
-                    { name: "(201)英语（一）", score: 72 },
-                    { name: "(303)数学（三）", score: 128 },
-                    { name: "(845)经济学综合基础", score: 115 }
-                ],
-                remark: "无",
-                schoolNote: "请妥善保存成绩查询结果截图，后续资格审核可能需要提交。"
-            },
-            {
-                name: "吴彦博",
-                idCard: "320106199912063275",
-                ticketNo: "102840005",
-                registrationNo: "202632010005",
-                schoolCode: "10284",
-                schoolName: "南京大学",
-                region: "江苏",
-                total: 384,
-                subjects: [
-                    { name: "(101)思想政治理论", score: 70 },
-                    { name: "(201)英语（一）", score: 69 },
-                    { name: "(301)数学（一）", score: 125 },
-                    { name: "(912)数据结构与算法", score: 120 }
-                ],
-                remark: "无",
-                schoolNote: "复试相关信息将通过研究生院网站统一发布，请及时关注。"
-            },
-            {
-                name: "孙雅琪",
-                idCard: "330102200101182519",
-                ticketNo: "103350006",
-                registrationNo: "202633010006",
-                schoolCode: "10335",
-                schoolName: "浙江大学",
-                region: "浙江",
-                total: 395,
-                subjects: [
-                    { name: "(101)思想政治理论", score: 76 },
-                    { name: "(201)英语（一）", score: 74 },
-                    { name: "(301)数学（一）", score: 129 },
-                    { name: "(408)计算机学科专业基础", score: 116 }
-                ],
-                remark: "无",
-                schoolNote: "成绩证明请按我校研招网发布的办理流程在线申请。"
-            },
-            {
-                name: "胡景行",
-                idCard: "420106200011294231",
-                ticketNo: "104860007",
-                registrationNo: "202642010007",
-                schoolCode: "10486",
-                schoolName: "武汉大学",
-                region: "湖北",
-                total: 382,
-                subjects: [
-                    { name: "(101)思想政治理论", score: 72 },
-                    { name: "(201)英语（一）", score: 71 },
-                    { name: "(303)数学（三）", score: 124 },
-                    { name: "(860)软件工程基础", score: 115 }
-                ],
-                remark: "无",
-                schoolNote: "如成绩显示异常，请联系报考学院研究生教学办公室核实。"
-            },
-            {
-                name: "林可欣",
-                idCard: "440104200012183924",
-                ticketNo: "105580008",
-                registrationNo: "202644010008",
-                schoolCode: "10558",
-                schoolName: "中山大学",
-                region: "广东",
-                total: 379,
-                subjects: [
-                    { name: "(101)思想政治理论", score: 69 },
-                    { name: "(201)英语（一）", score: 70 },
-                    { name: "(303)数学（三）", score: 123 },
-                    { name: "(830)程序设计与数据结构", score: 117 }
-                ],
-                remark: "无",
-                schoolNote: "后续复试资格名单、时间安排请关注我校研究生招生网。"
-            },
-            {
-                name: "陈晨",
-                idCard: "510104199912120015",
-                ticketNo: "1000C",
-                registrationNo: "3",
-                schoolCode: "10610",
-                schoolName: "四川大学",
-                region: "四川",
-                total: 294,
-                subjects: [
-                    { name: "(101)思想政治理论", score: 55 },
-                    { name: "(201)英语（一）", score: 46 },
-                    { name: "(701)基础医学综合", score: 193 },
-                    null
-                ],
-                remark: "无",
-                schoolNote: "请各位考生保存好本人初试成绩，后续环节以我校研究生院网站通知为准。"
-            },
-            {
-                name: "高一鸣",
-                idCard: "610103200102104526",
-                ticketNo: "106980010",
-                registrationNo: "202661010010",
-                schoolCode: "10698",
-                schoolName: "西安交通大学",
-                region: "陕西",
-                total: 387,
-                subjects: [
-                    { name: "(101)思想政治理论", score: 74 },
-                    { name: "(201)英语（一）", score: 72 },
-                    { name: "(301)数学（一）", score: 126 },
-                    { name: "(912)自动控制原理", score: 115 }
-                ],
-                remark: "无",
-                schoolNote: "我校成绩复核只核查是否存在漏评漏统，不重新评阅试卷。"
-            },
-            {
-                name: "冯思琪",
-                idCard: "220102200007011633",
-                ticketNo: "101830011",
-                registrationNo: "202622010011",
-                schoolCode: "10183",
-                schoolName: "吉林大学",
-                region: "吉林",
-                total: 371,
-                subjects: [
-                    { name: "(101)思想政治理论", score: 68 },
-                    { name: "(201)英语（一）", score: 67 },
-                    { name: "(302)数学（二）", score: 122 },
-                    { name: "(830)机械设计基础", score: 114 }
-                ],
-                remark: "无",
-                schoolNote: "请在规定时段内完成复试确认，逾期视为自动放弃。"
-            },
-            {
-                name: "邵泽宇",
-                idCard: "230102199911123714",
-                ticketNo: "102130012",
-                registrationNo: "202623010012",
-                schoolCode: "10213",
-                schoolName: "哈尔滨工业大学",
-                region: "黑龙江",
-                total: 377,
-                subjects: [
-                    { name: "(101)思想政治理论", score: 69 },
-                    { name: "(201)英语（一）", score: 70 },
-                    { name: "(301)数学（一）", score: 123 },
-                    { name: "(870)控制理论基础", score: 115 }
-                ],
-                remark: "无",
-                schoolNote: "成绩查询结果仅供参考，正式成绩以学校发布文件为准。"
-            }
-        ];
-
         var regions = (window.REGION_SCHOOLS_DATA && window.REGION_SCHOOLS_DATA.regions) ? window.REGION_SCHOOLS_DATA.regions : [];
         var schoolSelectPage = document.getElementById("schoolSelectPage");
         var queryPage = document.getElementById("queryPage");
@@ -1352,13 +1133,55 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        var localSchoolMap = {};
-        for (var s = 0; s < SCORE_RECORDS.length; s++) {
-            localSchoolMap[SCORE_RECORDS[s].schoolCode] = true;
-        }
-
         var selectedRegionCode = "";
+        var selectedRegionNameText = "";
         var selectedSchool = null;
+        var SUBJECT_TEMPLATES = [
+            [
+                { name: "(101)思想政治理论", full: 100 },
+                { name: "(201)英语（一）", full: 100 },
+                { name: "(301)数学（一）", full: 150 },
+                { name: "(408)计算机学科专业基础", full: 150 }
+            ],
+            [
+                { name: "(101)思想政治理论", full: 100 },
+                { name: "(201)英语（一）", full: 100 },
+                { name: "(302)数学（二）", full: 150 },
+                { name: "(815)管理学综合", full: 150 }
+            ],
+            [
+                { name: "(101)思想政治理论", full: 100 },
+                { name: "(201)英语（一）", full: 100 },
+                { name: "(303)数学（三）", full: 150 },
+                { name: "(902)经济学综合", full: 150 }
+            ],
+            [
+                { name: "(101)思想政治理论", full: 100 },
+                { name: "(201)英语（一）", full: 100 },
+                { name: "(306)临床医学综合能力（西医）", full: 300 }
+            ],
+            [
+                { name: "(101)思想政治理论", full: 100 },
+                { name: "(204)英语（二）", full: 100 },
+                { name: "(311)教育学专业基础", full: 300 }
+            ],
+            [
+                { name: "(101)思想政治理论", full: 100 },
+                { name: "(201)英语（一）", full: 100 },
+                { name: "(397)法硕联考专业基础（非法学）", full: 150 },
+                { name: "(497)法硕联考综合（非法学）", full: 150 }
+            ],
+            [
+                { name: "(199)管理类综合能力", full: 200 },
+                { name: "(204)英语（二）", full: 100 }
+            ],
+            [
+                { name: "(101)思想政治理论", full: 100 },
+                { name: "(204)英语（二）", full: 100 },
+                { name: "(701)艺术基础", full: 150 },
+                { name: "(901)专业创作", full: 150 }
+            ]
+        ];
 
         function normalizeText(value) {
             return (value || "").replace(/\s+/g, "").trim();
@@ -1405,30 +1228,136 @@ document.addEventListener('DOMContentLoaded', function () {
             return subject.name + ": " + subject.score;
         }
 
-        function hasLocalScoreData(schoolCode) {
-            return !!localSchoolMap[schoolCode];
+        function hashString(input) {
+            var str = String(input || "");
+            var hash = 2166136261;
+            for (var i = 0; i < str.length; i++) {
+                hash ^= str.charCodeAt(i);
+                hash += (hash << 1) + (hash << 4) + (hash << 7) + (hash << 8) + (hash << 24);
+            }
+            return (hash >>> 0) || 1;
+        }
+
+        function createRng(seed) {
+            var state = seed >>> 0;
+            return function () {
+                state = (1664525 * state + 1013904223) >>> 0;
+                return state / 4294967296;
+            };
+        }
+
+        function randomInt(rng, min, max) {
+            var value = min + Math.floor(rng() * (max - min + 1));
+            if (value < min) {
+                return min;
+            }
+            if (value > max) {
+                return max;
+            }
+            return value;
+        }
+
+        function pickTemplate(schoolCode) {
+            var parsed = parseInt(String(schoolCode || ""), 10);
+            var base = isNaN(parsed) ? hashString(schoolCode) : parsed;
+            return SUBJECT_TEMPLATES[Math.abs(base) % SUBJECT_TEMPLATES.length];
+        }
+
+        function generateSubjectScore(full, rng) {
+            if (full >= 300) {
+                return randomInt(rng, 150, 285);
+            }
+            if (full >= 200) {
+                return randomInt(rng, 105, 188);
+            }
+            if (full >= 150) {
+                return randomInt(rng, 68, 138);
+            }
+            return randomInt(rng, 42, 92);
+        }
+
+        function sanitizeWebsite(url) {
+            var text = String(url || "").replace(/^https?:\/\//i, "");
+            if (text.length > 60) {
+                return text.slice(0, 57) + "...";
+            }
+            return text;
+        }
+
+        function buildRegistrationNo(schoolCode, ticketNo, idCard, rng) {
+            var codePart = String(schoolCode || "").replace(/\D/g, "").slice(-5);
+            while (codePart.length < 5) {
+                codePart = "0" + codePart;
+            }
+
+            var ticketPart = String(ticketNo || "").replace(/\D/g, "");
+            if (ticketPart.length < 4) {
+                ticketPart = (ticketPart + String(randomInt(rng, 1000, 9999))).slice(0, 4);
+            } else {
+                ticketPart = ticketPart.slice(-4);
+            }
+
+            var idPart = String(idCard || "").replace(/\D/g, "");
+            if (idPart.length < 2) {
+                idPart = String(randomInt(rng, 10, 99));
+            } else {
+                idPart = idPart.slice(-2);
+            }
+
+            return "2026" + codePart + ticketPart + idPart;
+        }
+
+        function buildSchoolNote(school) {
+            if (school.website) {
+                return "请各位考生保存好本人初试成绩，后续事项请关注招生单位网站：" + sanitizeWebsite(school.website);
+            }
+            if (school.queryMode === "sch") {
+                return "请各位考生保存好本人初试成绩，后续成绩复核与复试安排请关注招生单位研究生院网站通知。";
+            }
+            return "请各位考生保存好本人初试成绩，后续成绩复核与复试安排请关注招生单位通知。";
+        }
+
+        function buildGeneratedResult(name, idCard, ticketNo) {
+            var seedInput = [
+                selectedSchool.code,
+                selectedSchool.name,
+                name,
+                idCard,
+                ticketNo
+            ].join("|");
+            var rng = createRng(hashString(seedInput));
+            var template = pickTemplate(selectedSchool.code);
+            var subjects = [null, null, null, null];
+            var total = 0;
+
+            for (var i = 0; i < template.length && i < 4; i++) {
+                var score = generateSubjectScore(template[i].full, rng);
+                subjects[i] = {
+                    name: template[i].name,
+                    score: score
+                };
+                total += score;
+            }
+
+            return {
+                name: name,
+                idCard: idCard,
+                ticketNo: ticketNo,
+                registrationNo: buildRegistrationNo(selectedSchool.code, ticketNo, idCard, rng),
+                schoolCode: selectedSchool.code,
+                schoolName: selectedSchool.name,
+                region: selectedSchool.regionName,
+                total: total,
+                subjects: subjects,
+                remark: "无",
+                schoolNote: buildSchoolNote(selectedSchool)
+            };
         }
 
         function findRegionByCode(code) {
             for (var i = 0; i < regions.length; i++) {
                 if (regions[i].code === code) {
                     return regions[i];
-                }
-            }
-            return null;
-        }
-
-        function findRecord(name, idCard, ticketNo, schoolCode) {
-            var upperTicketNo = ticketNo.toUpperCase();
-            for (var i = 0; i < SCORE_RECORDS.length; i++) {
-                var item = SCORE_RECORDS[i];
-                if (
-                    item.schoolCode === schoolCode &&
-                    normalizeText(item.name) === name &&
-                    normalizeIdCard(item.idCard) === idCard &&
-                    normalizeText(item.ticketNo).toUpperCase() === upperTicketNo
-                ) {
-                    return item;
                 }
             }
             return null;
@@ -1487,29 +1416,27 @@ document.addEventListener('DOMContentLoaded', function () {
                     var school = schools[i * 4 + j];
                     if (school) {
                         var schoolText = "(" + school.code + ")" + school.name;
-                        if (hasLocalScoreData(school.code)) {
-                            var link = document.createElement("a");
-                            link.href = "#";
-                            link.className = "school-link";
-                            link.textContent = schoolText;
-                            (function (schoolItem) {
-                                link.addEventListener("click", function (event) {
-                                    event.preventDefault();
-                                    selectedSchool = schoolItem;
-                                    querySchoolText.textContent = "(" + schoolItem.code + ")" + schoolItem.name;
-                                    resetQueryForm();
-                                    showQueryPage();
-                                    nameInput.focus();
-                                });
-                            })(school);
-                            cell.appendChild(link);
-                        } else {
-                            var span = document.createElement("span");
-                            span.className = "school-link disabled";
-                            span.textContent = schoolText;
-                            span.title = "暂未收录该招生单位本地静态成绩数据";
-                            cell.appendChild(span);
-                        }
+                        var link = document.createElement("a");
+                        link.href = "#";
+                        link.className = "school-link";
+                        link.textContent = schoolText;
+                        (function (schoolItem) {
+                            link.addEventListener("click", function (event) {
+                                event.preventDefault();
+                                selectedSchool = {
+                                    code: schoolItem.code,
+                                    name: schoolItem.name,
+                                    regionName: selectedRegionNameText,
+                                    queryMode: schoolItem.queryMode,
+                                    website: schoolItem.website || ""
+                                };
+                                querySchoolText.textContent = "(" + selectedSchool.code + ")" + selectedSchool.name;
+                                resetQueryForm();
+                                showQueryPage();
+                                nameInput.focus();
+                            });
+                        })(school);
+                        cell.appendChild(link);
                     }
                     row.appendChild(cell);
                 }
@@ -1533,7 +1460,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
             selectedRegionCode = code;
             updateRegionTabState();
-            selectedRegionName.textContent = shortRegionName(region.name);
+            selectedRegionNameText = shortRegionName(region.name);
+            selectedRegionName.textContent = selectedRegionNameText;
             schoolDefaultTip.style.display = "none";
             schoolListContainer.style.display = "block";
             renderSchoolTable(region.schools || []);
@@ -1573,12 +1501,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
 
-            var record = findRecord(name, idCard, ticketNo, selectedSchool.code);
-            if (!record) {
-                setQueryError("未查询到匹配成绩，请核对输入信息并确认报考单位是否选择正确。");
-                return;
-            }
-
+            var record = buildGeneratedResult(name, idCard, ticketNo);
             renderResult(record);
             showResultPanel();
         });
