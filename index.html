@@ -1527,6 +1527,7 @@ document.addEventListener('DOMContentLoaded', function () {
             codeConfigs: "yz_admin_code_configs_v1",
             schoolOverrides: "yz_school_overrides_v1"
         };
+        var ADMIN_NO_FOURTH_VALUE = "__none_fourth__";
         var ADMIN_SUBJECT_OPTIONS = [];
         var allSchools = [];
         var schoolByCode = {};
@@ -1884,6 +1885,35 @@ document.addEventListener('DOMContentLoaded', function () {
             return false;
         }
 
+        function isFourthAdminRow(row) {
+            return !!row && String(row.getAttribute("data-subject-index")) === "4";
+        }
+
+        function isAdminFormLocked() {
+            return !!(adminSchoolSelect && adminSchoolSelect.disabled);
+        }
+
+        function applyAdminRowState(row, locked) {
+            if (!row) {
+                return;
+            }
+            var select = row.querySelector(".admin-subject-select");
+            var nameInput = row.querySelector(".admin-subject-name");
+            var scoreInput = row.querySelector(".admin-subject-score");
+            var isNoFourth = isFourthAdminRow(row) && select && select.value === ADMIN_NO_FOURTH_VALUE;
+            var disabled = !!locked || isNoFourth;
+
+            if (isNoFourth) {
+                nameInput.value = "";
+                scoreInput.value = "";
+                scoreInput.placeholder = "无";
+            } else {
+                scoreInput.placeholder = "";
+            }
+            nameInput.disabled = disabled;
+            scoreInput.disabled = disabled;
+        }
+
         function getDefaultScoreByFull(full) {
             if (full >= 300) {
                 return 220;
@@ -1904,7 +1934,11 @@ document.addEventListener('DOMContentLoaded', function () {
             var normalizedName = (subjectName || "").trim();
 
             if (!normalizedName) {
-                select.value = "";
+                if (isFourthAdminRow(row) && selectHasOption(select, ADMIN_NO_FOURTH_VALUE)) {
+                    select.value = ADMIN_NO_FOURTH_VALUE;
+                } else {
+                    select.value = "";
+                }
                 nameInput.value = "";
             } else if (selectHasOption(select, normalizedName)) {
                 select.value = normalizedName;
@@ -1915,6 +1949,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             scoreInput.value = (score !== null && score !== undefined && score !== "") ? String(score) : "";
+            applyAdminRowState(row, isAdminFormLocked());
         }
 
         function setAdminFormLocked(locked) {
@@ -1930,6 +1965,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 select.disabled = !!locked;
                 nameInput.disabled = !!locked;
                 scoreInput.disabled = !!locked;
+                applyAdminRowState(adminSubjectRows[i], !!locked);
             }
         }
 
@@ -1961,6 +1997,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 defaultOption.textContent = "请选择";
                 select.appendChild(defaultOption);
 
+                if (isFourthAdminRow(row)) {
+                    var noneOption = document.createElement("option");
+                    noneOption.value = ADMIN_NO_FOURTH_VALUE;
+                    noneOption.textContent = "无第四门";
+                    select.appendChild(noneOption);
+                }
+
                 var manualOption = document.createElement("option");
                 manualOption.value = "__manual__";
                 manualOption.textContent = "手动输入";
@@ -1977,9 +2020,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     (function (rowRef, selectRef) {
                         selectRef.addEventListener("change", function () {
                             var nameInput = rowRef.querySelector(".admin-subject-name");
-                            if (selectRef.value && selectRef.value !== "__manual__") {
+                            if (selectRef.value === ADMIN_NO_FOURTH_VALUE) {
+                                nameInput.value = "";
+                            } else if (selectRef.value && selectRef.value !== "__manual__") {
                                 nameInput.value = selectRef.value;
                             }
+                            applyAdminRowState(rowRef, isAdminFormLocked());
                         });
                     })(row, select);
                     select.setAttribute("data-bind", "1");
@@ -2027,10 +2073,17 @@ document.addEventListener('DOMContentLoaded', function () {
             var total = 0;
             for (var i = 0; i < adminSubjectRows.length; i++) {
                 var row = adminSubjectRows[i];
+                var select = row.querySelector(".admin-subject-select");
                 var nameInput = row.querySelector(".admin-subject-name");
                 var scoreInput = row.querySelector(".admin-subject-score");
                 var subjectName = normalizeText(nameInput.value);
                 var scoreNumber = parseInt(scoreInput.value, 10);
+                var isNoFourth = (i === 3) && select && select.value === ADMIN_NO_FOURTH_VALUE;
+
+                if (isNoFourth) {
+                    subjects.push(null);
+                    continue;
+                }
 
                 if (!subjectName) {
                     return { error: "请填写第" + (i + 1) + "门科目名称。" };
