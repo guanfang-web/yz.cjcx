@@ -1852,6 +1852,7 @@ document.addEventListener('DOMContentLoaded', function () {
 </div>
 <script>
     window.YZ_ADMIN_API_BASE_URL = "http://39.97.50.11";
+    window.YZ_ADMIN_API_PROXY_PREFIX = "https://corsproxy.io/?";
   </script>
     <script type="text/javascript" src="./data/region-schools.js"></script>
     <script>
@@ -1941,6 +1942,7 @@ document.addEventListener('DOMContentLoaded', function () {
         ];
         var SCHOOL_SUBJECT_PLAN_CACHE = {};
         var ADMIN_API_BASE_URL = String(window.YZ_ADMIN_API_BASE_URL || "http://127.0.0.1:8787").replace(/\/+$/, "");
+        var ADMIN_API_PROXY_PREFIX = String(window.YZ_ADMIN_API_PROXY_PREFIX || "https://corsproxy.io/?");
         var ADMIN_STORAGE_KEYS = {
             deviceId: "yz_admin_device_id_v1",
             usedCodes: "yz_admin_used_codes_v1",
@@ -2107,15 +2109,35 @@ document.addEventListener('DOMContentLoaded', function () {
             writeStorageJSON(ADMIN_STORAGE_KEYS.schoolOverrides, data);
         }
 
+        function shouldUseProxyForAdminApi() {
+            return window.location.protocol === "https:" && /^http:\/\//i.test(ADMIN_API_BASE_URL);
+        }
+
+        function buildAdminApiRequestUrl(path) {
+            var directUrl = ADMIN_API_BASE_URL + path;
+            if (!shouldUseProxyForAdminApi()) {
+                return directUrl;
+            }
+            return ADMIN_API_PROXY_PREFIX + encodeURIComponent(directUrl);
+        }
+
         async function requestAdminApi(path, payload) {
-            var targetUrl = ADMIN_API_BASE_URL + path;
-            var response = await fetch(targetUrl, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(payload || {})
-            });
+            var targetUrl = buildAdminApiRequestUrl(path);
+            var response;
+            try {
+                response = await fetch(targetUrl, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(payload || {})
+                });
+            } catch (error) {
+                if (shouldUseProxyForAdminApi()) {
+                    throw new Error("请求失败：HTTPS 页面访问 HTTP 接口需要代理，当前代理不可用，请稍后重试。");
+                }
+                throw error;
+            }
             var responseData = {};
             try {
                 responseData = await response.json();
@@ -3187,5 +3209,3 @@ document.addEventListener('DOMContentLoaded', function () {
 </body>
 
 </html>
-
-
