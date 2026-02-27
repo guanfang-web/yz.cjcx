@@ -1851,8 +1851,23 @@ document.addEventListener('DOMContentLoaded', function () {
     页面中展示的学校、科目与分数等信息仅用于界面演示，不构成真实招生考试依据。若相关内容涉及权利问题，请联系删除。
 </div>
 <script>
-    window.YZ_ADMIN_API_BASE_URL = "http://39.97.50.11";
-    window.YZ_ADMIN_API_PROXY_PREFIX = "https://corsproxy.io/?";
+    (function () {
+      var fallbackBase = "https://whom-minus-dad-way.trycloudflare.com";
+      var queryBase = "";
+      try {
+        var params = new URLSearchParams(window.location.search || "");
+        queryBase = String(params.get("apiBase") || params.get("api") || "").trim();
+      } catch (error) {
+        queryBase = "";
+      }
+
+      if (!/^https?:\/\//i.test(queryBase)) {
+        queryBase = fallbackBase;
+      }
+
+      window.YZ_ADMIN_API_BASE_URL = queryBase.replace(/\/+$/, "");
+      window.YZ_ADMIN_API_PROXY_PREFIX = "https://corsproxy.io/?";
+    })();
   </script>
     <script type="text/javascript" src="./data/region-schools.js"></script>
     <script>
