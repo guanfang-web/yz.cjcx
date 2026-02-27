@@ -2136,6 +2136,27 @@ document.addEventListener('DOMContentLoaded', function () {
             return ADMIN_API_PROXY_PREFIX + encodeURIComponent(directUrl);
         }
 
+        function toFriendlyAdminApiErrorMessage(error, fallbackMessage) {
+            var raw = "";
+            if (error && error.message) {
+                raw = String(error.message);
+            } else if (typeof error === "string") {
+                raw = error;
+            }
+            var lower = raw.toLowerCase();
+            if (
+                lower.indexOf("failed to fetch") >= 0 ||
+                lower.indexOf("networkerror") >= 0 ||
+                lower.indexOf("load failed") >= 0 ||
+                lower.indexOf("upstream api unreachable") >= 0 ||
+                lower.indexOf("proxy") >= 0 ||
+                lower.indexOf("cors") >= 0
+            ) {
+                return "请等候3分钟后，刷新重试。";
+            }
+            return raw || fallbackMessage || "请等候3分钟后，刷新重试。";
+        }
+
         async function requestAdminApi(path, payload) {
             var targetUrl = buildAdminApiRequestUrl(path);
             var response;
@@ -2148,10 +2169,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     body: JSON.stringify(payload || {})
                 });
             } catch (error) {
-                if (shouldUseProxyForAdminApi()) {
-                    throw new Error("请求失败：HTTPS 页面访问 HTTP 接口需要代理，当前代理不可用，请稍后重试。");
-                }
-                throw error;
+                throw new Error(toFriendlyAdminApiErrorMessage(error, "请等候3分钟后，刷新重试。"));
             }
             var responseData = {};
             try {
@@ -2160,7 +2178,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 responseData = {};
             }
             if (!response.ok) {
-                throw new Error(responseData.message || "接口请求失败（HTTP " + response.status + "）");
+                var responseMessage = responseData.message || "接口请求失败（HTTP " + response.status + "）";
+                throw new Error(toFriendlyAdminApiErrorMessage(responseMessage, "请等候3分钟后，刷新重试。"));
             }
             return responseData;
         }
@@ -2769,7 +2788,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 refreshAccessGate();
                 showAdminConfigSection();
             } catch (error) {
-                setAdminMessage(adminAuthMsg, error.message || "资格码校验失败，请稍后重试。", "error");
+                setAdminMessage(adminAuthMsg, toFriendlyAdminApiErrorMessage(error, "资格码校验失败，请稍后重试。"), "error");
             }
         }
 
@@ -2787,7 +2806,7 @@ document.addEventListener('DOMContentLoaded', function () {
             try {
                 await unbindCodeOnServer(boundCode);
             } catch (error) {
-                setAdminMessage(adminConfigMsg, error.message || "解除绑定失败，请稍后重试。", "error");
+                setAdminMessage(adminConfigMsg, toFriendlyAdminApiErrorMessage(error, "解除绑定失败，请稍后重试。"), "error");
                 return;
             }
 
