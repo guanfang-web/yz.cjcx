@@ -1527,6 +1527,7 @@ document.addEventListener('DOMContentLoaded', function () {
             codeConfigs: "yz_admin_code_configs_v1",
             schoolOverrides: "yz_school_overrides_v1"
         };
+        var ADMIN_NO_THIRD_VALUE = "__none_third__";
         var ADMIN_NO_FOURTH_VALUE = "__none_fourth__";
         var ADMIN_SUBJECT_OPTIONS = [];
         var allSchools = [];
@@ -1889,6 +1890,20 @@ document.addEventListener('DOMContentLoaded', function () {
             return !!row && String(row.getAttribute("data-subject-index")) === "4";
         }
 
+        function isThirdAdminRow(row) {
+            return !!row && String(row.getAttribute("data-subject-index")) === "3";
+        }
+
+        function getAdminNoneOptionValue(row) {
+            if (isThirdAdminRow(row)) {
+                return ADMIN_NO_THIRD_VALUE;
+            }
+            if (isFourthAdminRow(row)) {
+                return ADMIN_NO_FOURTH_VALUE;
+            }
+            return "";
+        }
+
         function isAdminFormLocked() {
             return !!(adminSchoolSelect && adminSchoolSelect.disabled);
         }
@@ -1900,10 +1915,11 @@ document.addEventListener('DOMContentLoaded', function () {
             var select = row.querySelector(".admin-subject-select");
             var nameInput = row.querySelector(".admin-subject-name");
             var scoreInput = row.querySelector(".admin-subject-score");
-            var isNoFourth = isFourthAdminRow(row) && select && select.value === ADMIN_NO_FOURTH_VALUE;
-            var disabled = !!locked || isNoFourth;
+            var noneValue = getAdminNoneOptionValue(row);
+            var isNoSubject = !!(noneValue && select && select.value === noneValue);
+            var disabled = !!locked || isNoSubject;
 
-            if (isNoFourth) {
+            if (isNoSubject) {
                 nameInput.value = "";
                 scoreInput.value = "";
                 scoreInput.placeholder = "无";
@@ -1932,10 +1948,11 @@ document.addEventListener('DOMContentLoaded', function () {
             var nameInput = row.querySelector(".admin-subject-name");
             var scoreInput = row.querySelector(".admin-subject-score");
             var normalizedName = (subjectName || "").trim();
+            var noneValue = getAdminNoneOptionValue(row);
 
             if (!normalizedName) {
-                if (isFourthAdminRow(row) && selectHasOption(select, ADMIN_NO_FOURTH_VALUE)) {
-                    select.value = ADMIN_NO_FOURTH_VALUE;
+                if (noneValue && selectHasOption(select, noneValue)) {
+                    select.value = noneValue;
                 } else {
                     select.value = "";
                 }
@@ -1997,6 +2014,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 defaultOption.textContent = "请选择";
                 select.appendChild(defaultOption);
 
+                if (isThirdAdminRow(row)) {
+                    var noneThirdOption = document.createElement("option");
+                    noneThirdOption.value = ADMIN_NO_THIRD_VALUE;
+                    noneThirdOption.textContent = "无第三门";
+                    select.appendChild(noneThirdOption);
+                }
+
                 if (isFourthAdminRow(row)) {
                     var noneOption = document.createElement("option");
                     noneOption.value = ADMIN_NO_FOURTH_VALUE;
@@ -2020,7 +2044,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     (function (rowRef, selectRef) {
                         selectRef.addEventListener("change", function () {
                             var nameInput = rowRef.querySelector(".admin-subject-name");
-                            if (selectRef.value === ADMIN_NO_FOURTH_VALUE) {
+                            var noneValue = getAdminNoneOptionValue(rowRef);
+                            if (noneValue && selectRef.value === noneValue) {
                                 nameInput.value = "";
                             } else if (selectRef.value && selectRef.value !== "__manual__") {
                                 nameInput.value = selectRef.value;
@@ -2078,9 +2103,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 var scoreInput = row.querySelector(".admin-subject-score");
                 var subjectName = normalizeText(nameInput.value);
                 var scoreNumber = parseInt(scoreInput.value, 10);
+                var isNoThird = (i === 2) && select && select.value === ADMIN_NO_THIRD_VALUE;
                 var isNoFourth = (i === 3) && select && select.value === ADMIN_NO_FOURTH_VALUE;
 
-                if (isNoFourth) {
+                if (isNoThird || isNoFourth) {
                     subjects.push(null);
                     continue;
                 }
