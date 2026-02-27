@@ -4,6 +4,7 @@
     <title>全国硕士研究生招生考试部分考生初试成绩查询系统</title>
     <meta content="text/html" charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     
     <link rel="shortcut icon" type="image/x-icon" href="./assets/images/favicon.ico">
     <link rel="stylesheet" href="./assets/iconfont.css">
@@ -459,6 +460,20 @@
             margin-bottom: 10px;
         }
 
+        .admin-auth-confirm {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            margin: 6px 0 10px;
+            color: #666;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .admin-auth-confirm input {
+            margin-top: 3px;
+        }
+
         .admin-input,
         .admin-select {
             height: 34px;
@@ -537,6 +552,12 @@
             gap: 10px;
         }
 
+        .admin-actions .admin-reset-btn {
+            border: 1px solid #d9d9d9;
+            background: #fff;
+            color: #666;
+        }
+
         .admin-msg {
             min-height: 22px;
             line-height: 22px;
@@ -553,65 +574,335 @@
             color: #1a7f37;
         }
 
-        @media (max-width: 1000px) {
-            .score-query-wrapper {
-                width: 92%;
+        @media (max-width: 0px) {
+            .main-wrapper-org .container {
+                width: 100%;
+                max-width: none;
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+
+            .ch-sticky .main-wrapper-org .container {
+                padding-bottom: 120px;
+            }
+
+            .yz-header-banner-wrapper {
+                margin-bottom: 8px;
+            }
+
+            .yz-header-banner-wrapper .banner {
+                height: 140px;
+                line-height: normal;
+                padding: 16px 12px;
+                background-size: cover;
+                background-position: center;
+            }
+
+            .yz-header-banner-wrapper h1 {
+                font-size: 32px;
+                line-height: 1.25;
+            }
+
+            .yz-header-banner-wrapper .ch-sub-title {
+                font-size: 13px;
+                line-height: 1.5;
+                margin-top: 8px;
+            }
+
+            .score-page {
+                padding-bottom: 20px;
             }
 
             .score-sub-title {
-                font-size: 30px;
+                font-size: 28px;
+                margin: 14px 0 10px;
+            }
+
+            .score-divider {
+                margin-bottom: 12px;
+            }
+
+            #regionTabs {
+                display: flex;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                white-space: nowrap;
+                -webkit-overflow-scrolling: touch;
+                padding-bottom: 6px;
+            }
+
+            #regionTabs li {
+                flex: 0 0 auto;
+            }
+
+            .score-list-alert {
+                font-size: 13px;
+                line-height: 1.6;
+                padding: 8px 10px;
+                margin-bottom: 12px;
+            }
+
+            #schoolsTable thead {
+                display: none;
+            }
+
+            #schoolsTable,
+            #schoolsTable tbody,
+            #schoolsTable tr,
+            #schoolsTable td {
+                display: block;
+                width: 100%;
+            }
+
+            #schoolsTable tr {
+                padding: 6px 0;
+                border-bottom: 1px solid #ececec;
+            }
+
+            #schoolsTable td {
+                padding: 8px 4px;
+                border-bottom: none !important;
+            }
+
+            #schoolsTable td:empty {
+                display: none;
+            }
+
+            #schoolsTable td a.school-link {
+                display: block;
+                line-height: 1.5;
+            }
+
+            .wbgg-page-tip {
+                font-size: 12px;
+                line-height: 1.6;
+                padding-top: 8px;
+            }
+
+            .score-query-wrapper {
+                width: 100%;
+                margin: 0 auto 16px;
+            }
+
+            .score-alert-tip {
+                height: auto;
+                line-height: 1.6;
+                padding: 10px 12px;
+                margin-bottom: 14px;
             }
 
             .query-row {
                 flex-wrap: wrap;
+                align-items: flex-start;
+                margin-bottom: 14px;
             }
 
             .query-label {
                 width: 100%;
                 text-align: left;
-                margin-bottom: 8px;
+                margin-bottom: 6px;
+                line-height: 1.4;
             }
 
             .query-input {
                 width: 100%;
+                height: 40px;
+                font-size: 16px;
             }
 
             .query-link {
                 margin: 8px 0 0;
+                font-size: 13px;
             }
 
-            .query-submit,
-            .query-error {
+            .query-unit {
+                font-size: 13px;
+                line-height: 1.5;
+            }
+
+            .query-submit {
                 margin-left: 0;
+                min-width: 90px;
+            }
+
+            .query-error {
+                margin: 0;
+                min-height: 20px;
+                line-height: 1.6;
             }
 
             .cjcx-box {
-                padding: 20px;
+                margin-top: 12px;
+                margin-bottom: 12px;
+                padding: 0;
             }
 
             .cjxx-info {
                 width: 100%;
+                table-layout: fixed;
+            }
+
+            .cjxx-info tr {
+                height: auto;
+            }
+
+            .cjxx-info tr.cjxx-info-cut {
+                display: none;
+            }
+
+            .cjxx-info-title,
+            .cjxx-info-content {
+                padding: 10px 12px;
+                border-bottom: 1px solid #ececec;
+                vertical-align: middle;
+            }
+
+            .cjxx-info-title {
+                width: 90px;
+                text-align: left;
+                color: #666;
+            }
+
+            .cjxx-info-content {
+                padding-left: 0;
+            }
+
+            .cjxx-info tr:last-child .cjxx-info-title,
+            .cjxx-info tr:last-child .cjxx-info-content {
+                border-bottom: none;
             }
 
             .cjcx-bz {
                 position: static;
                 width: auto;
-                margin-top: 18px;
+                margin: 0;
                 right: auto;
                 top: auto;
+                border-top: 1px solid #ececec;
+                padding: 14px 12px;
+            }
+
+            .cjcx-tip {
+                margin-top: 12px;
+                margin-bottom: 18px;
+            }
+
+            .result-back-btn {
+                min-width: 78px;
+                height: 32px;
+                line-height: 32px;
+            }
+
+            .entry-gate {
+                padding: 14px;
+            }
+
+            .entry-gate-panel {
+                padding: 18px 16px;
+            }
+
+            .entry-gate-title {
+                font-size: 18px;
+            }
+
+            .entry-gate-tip {
+                font-size: 13px;
+                line-height: 1.6;
+                margin-bottom: 14px;
             }
 
             .admin-panel {
                 width: 100%;
+                max-height: 92vh;
+                border-radius: 6px;
+            }
+
+            .admin-header {
+                padding: 12px 14px;
+            }
+
+            .admin-title {
+                font-size: 18px;
+            }
+
+            .admin-body {
+                padding: 14px;
             }
 
             .admin-inline {
                 flex-wrap: wrap;
             }
 
+            .admin-inline .ch-btn {
+                width: 100%;
+            }
+
             .admin-subject-table {
                 display: block;
                 overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+        }
+
+        @media (max-width: 0px) {
+            .yz-header-banner-wrapper .banner {
+                height: 118px;
+                padding: 14px 10px;
+            }
+
+            .yz-header-banner-wrapper h1 {
+                font-size: 22px;
+                line-height: 1.25;
+            }
+
+            .yz-header-banner-wrapper .ch-sub-title {
+                font-size: 12px;
+                line-height: 1.5;
+            }
+
+            .score-sub-title {
+                font-size: 22px;
+            }
+
+            .query-submit {
+                width: 100%;
+                height: 38px;
+                line-height: 38px;
+            }
+
+            .cjxx-info-title {
+                width: 80px;
+            }
+        }
+
+        @media (max-width: 0px) {
+            .main-wrapper-org .container {
+                padding-left: 8px;
+                padding-right: 8px;
+            }
+
+            .score-sub-title {
+                font-size: 20px;
+            }
+
+            .cjxx-info-title,
+            .cjxx-info-content {
+                padding: 9px 8px;
+            }
+
+            .admin-title {
+                font-size: 16px;
+            }
+
+            .admin-input,
+            .admin-select {
+                font-size: 16px;
+            }
+
+            .admin-subject-table th,
+            .admin-subject-table td {
+                font-size: 13px;
+                padding: 6px;
             }
         }
     </style>
@@ -880,6 +1171,84 @@ gtag('config', 'UA-100524-7', {'sample_rate': 5});
         display: flex;
         align-items: center;
     }
+
+    @media (max-width: 0px) {
+        .top-nav-wrapper .top-nav {
+            width: 100%;
+            padding: 0 10px;
+        }
+
+        .top-nav-wrapper .top-nav-list a {
+            margin-right: 12px;
+        }
+    }
+
+    @media (max-width: 0px) {
+        .top-nav-wrapper {
+            height: auto;
+            line-height: normal;
+        }
+
+        .top-nav-wrapper .top-nav {
+            min-height: 48px;
+            padding: 8px 10px;
+        }
+
+        .top-nav-wrapper .top-nav-list {
+            flex: 1;
+            min-width: 0;
+            height: auto;
+        }
+
+        .top-nav-wrapper .top-nav-list .seach-toggel {
+            display: none;
+        }
+
+        .top-nav-wrapper .top-nav-list a.top-nav-home {
+            width: 86px;
+            height: 32px;
+            margin-right: 0;
+        }
+
+        .top-nav-wrapper .top-nav-load {
+            height: auto;
+            gap: 8px;
+        }
+
+        .top-nav-search-input,
+        .top-nav-load-search,
+        .search-cancel,
+        .info-line {
+            display: none !important;
+        }
+
+        .top-nav-wrapper.active .top-nav-search-input,
+        .top-nav-wrapper.active .top-nav-load-search,
+        .top-nav-wrapper.active .search-cancel,
+        .top-nav-wrapper.active .search-button {
+            display: none !important;
+        }
+
+        .top-nav-wrapper .top-nav-load a {
+            font-size: 13px;
+            white-space: nowrap;
+        }
+    }
+
+    @media (max-width: 0px) {
+        .top-nav-wrapper .top-nav {
+            padding: 8px;
+        }
+
+        .top-nav-wrapper .top-nav-load a[href="/user/"] {
+            display: none;
+        }
+
+        .top-nav-wrapper .top-nav-list a.top-nav-home {
+            width: 80px;
+            background-size: auto 28px;
+        }
+    }
 </style>
 <div class="top-nav-wrapper">
     <div class="top-nav">
@@ -1146,7 +1515,6 @@ document.addEventListener('DOMContentLoaded', function () {
                                     <td class="cjxx-info-title"></td>
                                     <td class="cjxx-info-content">
                                         <button id="backToQueryBtn" type="button" class="ch-btn ch-btn-primary result-back-btn">返回</button>
-                                        <button id="resultToSelectBtn" type="button" class="ch-btn result-back-btn" style="margin-left: 8px;">院校列表</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -1182,6 +1550,10 @@ document.addEventListener('DOMContentLoaded', function () {
                         <input id="adminCodeInput" class="admin-input" type="text" placeholder="请输入资格码（示例：YZ-XXXX-XXXX-XXXX）" autocomplete="off">
                         <button id="adminCodeVerifyBtn" type="button" class="ch-btn ch-btn-primary">验证进入</button>
                     </div>
+                    <label class="admin-auth-confirm">
+                        <input id="adminBindConfirm" type="checkbox">
+                        我已确认将该资格码绑定到当前设备（避免误触回车，需勾选后才能绑定）
+                    </label>
                     <div id="adminAuthMsg" class="admin-msg"></div>
                 </div>
 
@@ -1194,6 +1566,10 @@ document.addEventListener('DOMContentLoaded', function () {
                         <div class="admin-form-block">
                             <label class="admin-label" for="adminSchoolSelect">对应学校（仅可配置一次）</label>
                             <select id="adminSchoolSelect" class="admin-select"></select>
+                        </div>
+                        <div class="admin-form-block">
+                            <label class="admin-label" for="adminRegNoInput">报名号（用于结果展示）</label>
+                            <input id="adminRegNoInput" class="admin-input" type="text" maxlength="40" placeholder="请输入报名号" autocomplete="off">
                         </div>
 
                         <table class="admin-subject-table">
@@ -1235,6 +1611,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                         <div class="admin-actions">
                             <button id="adminSaveBtn" type="submit" class="ch-btn ch-btn-primary">保存并锁定本资格码</button>
+                            <button id="adminResetBindingBtn" type="button" class="ch-btn admin-reset-btn">解除绑定并重新配置</button>
                         </div>
                     </form>
                     <div id="adminConfigMsg" class="admin-msg"></div>
@@ -1346,6 +1723,56 @@ document.addEventListener('DOMContentLoaded', function () {
         color: #9d9d9d;
         font-weight: 500;
     }
+
+    @media (max-width: 0px) {
+        .footer-wrapper {
+            line-height: 1.8;
+            padding: 14px 12px;
+        }
+
+        .footer-wrapper .footer {
+            width: 100%;
+            height: auto;
+        }
+
+        .footer-wrapper .footer-list,
+        .footer-wrapper .footer-units,
+        .footer-wrapper .footer-media,
+        .footer-wrapper .footer-msg {
+            position: static;
+            top: auto;
+            left: auto;
+            margin: 0 0 10px;
+        }
+
+        .footer-wrapper .footer-list a {
+            display: inline-block;
+            margin-right: 12px;
+        }
+
+        .footer-wrapper .footer-media a {
+            margin-right: 16px;
+        }
+    }
+
+    @media (max-width: 0px) {
+        .footer-wrapper {
+            padding: 12px 8px;
+        }
+
+        .footer-wrapper .footer-list a {
+            margin-right: 8px;
+        }
+
+        .footer-wrapper .footer-media .iconfont {
+            font-size: 16px;
+        }
+
+        .footer-wrapper .svg-icon {
+            width: 16px;
+            height: 18px;
+        }
+    }
 </style>
 <svg style="display: block; width: 0; height: 0">
     <defs>
@@ -1423,7 +1850,9 @@ document.addEventListener('DOMContentLoaded', function () {
     本页面为前端技术学习与静态演示用途，非中国研究生招生信息网（研招网）官方页面，未提供任何官方成绩查询服务；
     页面中展示的学校、科目与分数等信息仅用于界面演示，不构成真实招生考试依据。若相关内容涉及权利问题，请联系删除。
 </div>
-
+<script>
+    window.YZ_ADMIN_API_BASE_URL = "http://39.97.50.11";
+  </script>
     <script type="text/javascript" src="./data/region-schools.js"></script>
     <script>
     (function () {
@@ -1454,19 +1883,22 @@ document.addEventListener('DOMContentLoaded', function () {
         var adminAuthSection = document.getElementById("adminAuthSection");
         var adminConfigSection = document.getElementById("adminConfigSection");
         var adminCodeInput = document.getElementById("adminCodeInput");
+        var adminBindConfirm = document.getElementById("adminBindConfirm");
         var adminCodeVerifyBtn = document.getElementById("adminCodeVerifyBtn");
         var adminAuthMsg = document.getElementById("adminAuthMsg");
         var adminBoundCode = document.getElementById("adminBoundCode");
         var adminConfigStatus = document.getElementById("adminConfigStatus");
         var adminConfigForm = document.getElementById("adminConfigForm");
         var adminSchoolSelect = document.getElementById("adminSchoolSelect");
+        var adminRegNoInput = document.getElementById("adminRegNoInput");
         var adminSaveBtn = document.getElementById("adminSaveBtn");
+        var adminResetBindingBtn = document.getElementById("adminResetBindingBtn");
         var adminConfigMsg = document.getElementById("adminConfigMsg");
         var adminSubjectRows = Array.prototype.slice.call(document.querySelectorAll(".admin-subject-row"));
         var entryGate = document.getElementById("entryGate");
         var entryGateOpenAdminBtn = document.getElementById("entryGateOpenAdminBtn");
 
-        if (!form || !queryPanel || !resultPanel || !schoolSelectPage || !queryPage) {
+        if (!form || !queryPanel || !resultPanel || !schoolSelectPage || !queryPage || !adminRegNoInput) {
             return;
         }
 
@@ -1508,18 +1940,7 @@ document.addEventListener('DOMContentLoaded', function () {
             { name: "(925)数据结构", full: 150 }
         ];
         var SCHOOL_SUBJECT_PLAN_CACHE = {};
-        var ADMIN_QUAL_CODES = [
-            "YZ-7QK9-2M4R-X8P1",
-            "YZ-N5T2-H9L7-C3V8",
-            "YZ-4RZ1-K6W8-P2D9",
-            "YZ-B8M3-Q1F7-T6N4",
-            "YZ-X2C7-L9P4-R5K8",
-            "YZ-H6V1-D3Q8-M9T2",
-            "YZ-P4N8-Z2K5-W7R1",
-            "YZ-T9L3-X5C1-Q8M6",
-            "YZ-K7R2-B4H9-V1P5",
-            "YZ-M1D6-T8N3-L4Q7"
-        ];
+        var ADMIN_API_BASE_URL = String(window.YZ_ADMIN_API_BASE_URL || "http://127.0.0.1:8787").replace(/\/+$/, "");
         var ADMIN_STORAGE_KEYS = {
             deviceId: "yz_admin_device_id_v1",
             usedCodes: "yz_admin_used_codes_v1",
@@ -1589,14 +2010,40 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
 
+        function safeStorageGet(key, fallbackValue) {
+            try {
+                var value = localStorage.getItem(key);
+                return value === null ? fallbackValue : value;
+            } catch (error) {
+                return fallbackValue;
+            }
+        }
+
+        function safeStorageSet(key, value) {
+            try {
+                localStorage.setItem(key, value);
+                return true;
+            } catch (error) {
+                return false;
+            }
+        }
+
+        function safeStorageRemove(key) {
+            try {
+                localStorage.removeItem(key);
+            } catch (error) {
+                // ignore localStorage remove errors
+            }
+        }
+
         function getOrCreateDeviceId() {
-            var deviceId = localStorage.getItem(ADMIN_STORAGE_KEYS.deviceId);
+            var deviceId = safeStorageGet(ADMIN_STORAGE_KEYS.deviceId, "");
             if (deviceId) {
                 return deviceId;
             }
             var seed = hashString(navigator.userAgent + "|" + String(Date.now()) + "|" + String(Math.random()));
             deviceId = "dev-" + seed.toString(16);
-            localStorage.setItem(ADMIN_STORAGE_KEYS.deviceId, deviceId);
+            safeStorageSet(ADMIN_STORAGE_KEYS.deviceId, deviceId);
             return deviceId;
         }
 
@@ -1609,15 +2056,15 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         function getBoundAdminCode() {
-            return localStorage.getItem(ADMIN_STORAGE_KEYS.boundCode) || "";
+            return safeStorageGet(ADMIN_STORAGE_KEYS.boundCode, "") || "";
         }
 
         function setBoundAdminCode(code) {
             if (!code) {
-                localStorage.removeItem(ADMIN_STORAGE_KEYS.boundCode);
+                safeStorageRemove(ADMIN_STORAGE_KEYS.boundCode);
                 return;
             }
-            localStorage.setItem(ADMIN_STORAGE_KEYS.boundCode, code);
+            safeStorageSet(ADMIN_STORAGE_KEYS.boundCode, code);
         }
 
         function lockMainAccess() {
@@ -1658,6 +2105,41 @@ document.addEventListener('DOMContentLoaded', function () {
 
         function setSchoolOverrides(data) {
             writeStorageJSON(ADMIN_STORAGE_KEYS.schoolOverrides, data);
+        }
+
+        async function requestAdminApi(path, payload) {
+            var targetUrl = ADMIN_API_BASE_URL + path;
+            var response = await fetch(targetUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(payload || {})
+            });
+            var responseData = {};
+            try {
+                responseData = await response.json();
+            } catch (error) {
+                responseData = {};
+            }
+            if (!response.ok) {
+                throw new Error(responseData.message || "接口请求失败（HTTP " + response.status + "）");
+            }
+            return responseData;
+        }
+
+        async function bindCodeOnServer(code) {
+            return requestAdminApi("/api/v1/codes/bind", {
+                code: String(code || "").trim().toUpperCase(),
+                deviceId: getOrCreateDeviceId()
+            });
+        }
+
+        async function unbindCodeOnServer(code) {
+            return requestAdminApi("/api/v1/codes/unbind", {
+                code: String(code || "").trim().toUpperCase(),
+                deviceId: getOrCreateDeviceId()
+            });
         }
 
         function setAdminMessage(target, message, type) {
@@ -1974,6 +2456,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
             adminSchoolSelect.disabled = !!locked;
+            adminRegNoInput.disabled = !!locked;
             adminSaveBtn.disabled = !!locked;
             for (var i = 0; i < adminSubjectRows.length; i++) {
                 var select = adminSubjectRows[i].querySelector(".admin-subject-select");
@@ -2093,6 +2576,10 @@ document.addEventListener('DOMContentLoaded', function () {
             if (!school) {
                 return { error: "请选择有效的学校。" };
             }
+            var registrationNo = normalizeText(adminRegNoInput.value);
+            if (!registrationNo) {
+                return { error: "请填写报名号（用于结果展示）。" };
+            }
 
             var subjects = [];
             var total = 0;
@@ -2124,6 +2611,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             return {
                 school: school,
+                registrationNo: registrationNo,
                 subjects: subjects,
                 total: total
             };
@@ -2139,6 +2627,9 @@ document.addEventListener('DOMContentLoaded', function () {
             if (adminCodeInput) {
                 adminCodeInput.value = "";
                 adminCodeInput.focus();
+            }
+            if (adminBindConfirm) {
+                adminBindConfirm.checked = false;
             }
         }
 
@@ -2161,20 +2652,25 @@ document.addEventListener('DOMContentLoaded', function () {
 
             var codeConfigs = getAdminCodeConfigs();
             var codeConfig = codeConfigs[boundCode] || null;
+            if (adminResetBindingBtn) {
+                adminResetBindingBtn.disabled = false;
+            }
             if (codeConfig) {
                 adminConfigStatus.textContent = "已配置并锁定（该资格码不可再次修改）";
                 setAdminFormLocked(true);
                 adminSchoolSelect.value = codeConfig.schoolCode || "";
                 var overrideLocked = getSchoolOverrideByCode(codeConfig.schoolCode || "");
                 if (overrideLocked) {
+                    adminRegNoInput.value = overrideLocked.registrationNo || codeConfig.registrationNo || "";
                     fillAdminFormWithOverride(overrideLocked);
                 } else {
                     var lockedSchool = getSchoolByCode(codeConfig.schoolCode || "");
                     if (lockedSchool) {
                         fillAdminFormWithSchoolPlan(lockedSchool);
                     }
+                    adminRegNoInput.value = codeConfig.registrationNo || "";
                 }
-                setAdminMessage(adminConfigMsg, "该资格码已使用并锁定，当前仅可查看。", "");
+                setAdminMessage(adminConfigMsg, "该资格码已使用并锁定，若需修改请先“解除绑定并重新配置”。", "");
             } else {
                 adminConfigStatus.textContent = "未配置，可提交 1 次";
                 setAdminFormLocked(false);
@@ -2183,6 +2679,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     adminSchoolSelect.value = defaultSchool.code;
                     fillAdminFormWithSchoolPlan(defaultSchool);
                 }
+                adminRegNoInput.value = "";
                 setAdminMessage(adminConfigMsg, "", "");
             }
         }
@@ -2208,32 +2705,85 @@ document.addEventListener('DOMContentLoaded', function () {
             adminOverlay.setAttribute("aria-hidden", "true");
         }
 
-        function verifyAdminCodeAndBind() {
+        async function verifyAdminCodeAndBind() {
             var code = normalizeText(adminCodeInput.value).toUpperCase();
             if (!code) {
                 setAdminMessage(adminAuthMsg, "请输入资格码。", "error");
                 return;
             }
-            if (ADMIN_QUAL_CODES.indexOf(code) < 0) {
-                setAdminMessage(adminAuthMsg, "资格码无效。", "error");
+            if (!adminBindConfirm || !adminBindConfirm.checked) {
+                setAdminMessage(adminAuthMsg, "请先勾选绑定确认，再执行绑定。", "error");
                 return;
             }
+            if (!window.confirm("确认将资格码绑定到当前设备吗？绑定后可在后台解除并重新配置。")) {
+                setAdminMessage(adminAuthMsg, "已取消绑定。", "");
+                return;
+            }
+            setAdminMessage(adminAuthMsg, "正在与服务器校验资格码，请稍候...", "");
+
+            try {
+                var apiResult = await bindCodeOnServer(code);
+                setBoundAdminCode(code);
+                if (apiResult && apiResult.status === "already_bound_to_this_device") {
+                    setAdminMessage(adminAuthMsg, "资格码已绑定当前设备，已直接进入。", "success");
+                } else {
+                    setAdminMessage(adminAuthMsg, "资格码验证成功。", "success");
+                }
+                refreshAccessGate();
+                showAdminConfigSection();
+            } catch (error) {
+                setAdminMessage(adminAuthMsg, error.message || "资格码校验失败，请稍后重试。", "error");
+            }
+        }
+
+        async function resetAdminBindingAndConfig() {
+            var boundCode = getBoundAdminCode();
+            if (!boundCode) {
+                showAdminAuthSection();
+                return;
+            }
+            if (!window.confirm("确认解除当前绑定并清除该资格码对应的本地配置吗？")) {
+                return;
+            }
+            setAdminMessage(adminConfigMsg, "正在请求服务器解除绑定，请稍候...", "");
+
+            try {
+                await unbindCodeOnServer(boundCode);
+            } catch (error) {
+                setAdminMessage(adminConfigMsg, error.message || "解除绑定失败，请稍后重试。", "error");
+                return;
+            }
+
+            var codeConfigs = getAdminCodeConfigs();
+            delete codeConfigs[boundCode];
+            setAdminCodeConfigs(codeConfigs);
 
             var usedCodes = getUsedAdminCodes();
-            if (usedCodes[code]) {
-                setAdminMessage(adminAuthMsg, "该资格码已被设备使用。", "error");
-                return;
+            if (usedCodes[boundCode]) {
+                delete usedCodes[boundCode];
+                setUsedAdminCodes(usedCodes);
             }
 
-            usedCodes[code] = {
-                deviceId: getOrCreateDeviceId(),
-                usedAt: new Date().toISOString()
-            };
-            setUsedAdminCodes(usedCodes);
-            setBoundAdminCode(code);
-            setAdminMessage(adminAuthMsg, "资格码验证成功。", "success");
+            var overrides = getSchoolOverrides();
+            var hasOverrideChange = false;
+            for (var key in overrides) {
+                if (!Object.prototype.hasOwnProperty.call(overrides, key)) {
+                    continue;
+                }
+                var override = overrides[key];
+                if (override && override.fromCode === boundCode) {
+                    delete overrides[key];
+                    hasOverrideChange = true;
+                }
+            }
+            if (hasOverrideChange) {
+                setSchoolOverrides(overrides);
+            }
+
+            setBoundAdminCode("");
             refreshAccessGate();
-            showAdminConfigSection();
+            showAdminAuthSection();
+            setAdminMessage(adminAuthMsg, "原绑定已解除，请重新输入资格码并配置。", "success");
         }
 
         function saveAdminConfigOnce(event) {
@@ -2263,6 +2813,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 schoolCode: payload.school.code,
                 schoolName: payload.school.name,
                 region: payload.school.regionName,
+                registrationNo: payload.registrationNo,
                 subjects: payload.subjects,
                 total: payload.total,
                 remark: "无",
@@ -2275,6 +2826,7 @@ document.addEventListener('DOMContentLoaded', function () {
             codeConfigs[boundCode] = {
                 schoolCode: payload.school.code,
                 schoolName: payload.school.name,
+                registrationNo: payload.registrationNo,
                 savedAt: now
             };
             setAdminCodeConfigs(codeConfigs);
@@ -2285,6 +2837,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
         function buildGeneratedResult(name, idCard, ticketNo) {
             var overrideData = getSchoolOverrideByCode(selectedSchool.code);
+            var regSeed = [
+                selectedSchool.code,
+                selectedSchool.name,
+                name,
+                idCard,
+                ticketNo,
+                "reg"
+            ].join("|");
+            var generatedRegistrationNo = buildRegistrationNo(selectedSchool.code, ticketNo, idCard, createRng(hashString(regSeed)));
+            var finalRegistrationNo = (overrideData && normalizeText(overrideData.registrationNo)) ? normalizeText(overrideData.registrationNo) : generatedRegistrationNo;
             if (overrideData && overrideData.subjects && overrideData.subjects.length) {
                 var fixedSubjects = [null, null, null, null];
                 var fixedTotal = 0;
@@ -2308,7 +2870,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     name: name,
                     idCard: idCard,
                     ticketNo: ticketNo,
-                    registrationNo: buildRegistrationNo(selectedSchool.code, ticketNo, idCard, createRng(hashString(name + idCard + ticketNo))),
+                    registrationNo: finalRegistrationNo,
                     schoolCode: selectedSchool.code,
                     schoolName: selectedSchool.name,
                     region: selectedSchool.regionName,
@@ -2352,7 +2914,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 name: name,
                 idCard: idCard,
                 ticketNo: ticketNo,
-                registrationNo: buildRegistrationNo(selectedSchool.code, ticketNo, idCard, rng),
+                registrationNo: finalRegistrationNo,
                 schoolCode: selectedSchool.code,
                 schoolName: selectedSchool.name,
                 region: selectedSchool.regionName,
@@ -2534,9 +3096,11 @@ document.addEventListener('DOMContentLoaded', function () {
             showQueryPanel();
         });
 
-        resultToSelectBtn.addEventListener("click", function () {
-            showSelectPage();
-        });
+        if (resultToSelectBtn) {
+            resultToSelectBtn.addEventListener("click", function () {
+                showSelectPage();
+            });
+        }
 
         if (adminSchoolSelect && adminSchoolSelect.getAttribute("data-bind") !== "1") {
             adminSchoolSelect.addEventListener("change", function () {
@@ -2584,7 +3148,6 @@ document.addEventListener('DOMContentLoaded', function () {
             adminCodeInput.addEventListener("keydown", function (event) {
                 if (event.key === "Enter") {
                     event.preventDefault();
-                    verifyAdminCodeAndBind();
                 }
             });
         }
@@ -2592,6 +3155,12 @@ document.addEventListener('DOMContentLoaded', function () {
         if (adminConfigForm) {
             adminConfigForm.addEventListener("submit", function (event) {
                 saveAdminConfigOnce(event);
+            });
+        }
+
+        if (adminResetBindingBtn) {
+            adminResetBindingBtn.addEventListener("click", function () {
+                resetAdminBindingAndConfig();
             });
         }
 
