@@ -1610,7 +1610,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         </table>
 
                         <div class="admin-actions">
-                            <button id="adminSaveBtn" type="submit" class="ch-btn ch-btn-primary">保存并锁定本资格码</button>
+                            <button id="adminSaveBtn" type="button" class="ch-btn ch-btn-primary">保存并锁定本资格码</button>
                             <button id="adminResetBindingBtn" type="button" class="ch-btn admin-reset-btn">解除绑定并重新配置</button>
                         </div>
                     </form>
@@ -2843,7 +2843,9 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         function saveAdminConfigOnce(event) {
-            event.preventDefault();
+            if (event && typeof event.preventDefault === "function") {
+                event.preventDefault();
+            }
             var boundCode = getBoundAdminCode();
             if (!boundCode) {
                 setAdminMessage(adminConfigMsg, "请先输入资格码完成绑定。", "error");
@@ -3210,7 +3212,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (adminConfigForm) {
             adminConfigForm.addEventListener("submit", function (event) {
-                saveAdminConfigOnce(event);
+                event.preventDefault();
+            });
+            adminConfigForm.addEventListener("keydown", function (event) {
+                if (event.key === "Enter") {
+                    var targetTag = event.target && event.target.tagName ? event.target.tagName.toUpperCase() : "";
+                    if (targetTag !== "BUTTON") {
+                        event.preventDefault();
+                    }
+                }
+            });
+        }
+
+        if (adminSaveBtn) {
+            adminSaveBtn.addEventListener("click", function () {
+                saveAdminConfigOnce();
             });
         }
 
